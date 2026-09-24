@@ -1,0 +1,4 @@
+backbone,val_macro_f1,val_accuracy,val_loss,learning_rate,batch_size,dropout,finetune_improved,params_M,train_min
+ResNet50V2,1.0,1.0,0.12458357531625656,0.001,16,0.2,True,23.58,2.6
+EfficientNetB3,0.9866518353726363,0.9866666666666667,0.15550630426440032,0.001,16,0.2,True,10.79,3.5
+DenseNet121,0.9737068965517242,0.9733333333333334,0.20989532252101897,0.001,16,0.2,True,7.04,3.7

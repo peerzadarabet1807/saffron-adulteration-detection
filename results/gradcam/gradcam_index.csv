@@ -1,0 +1,13 @@
+file,true,predicted,confidence,correct
+gradcam_01_true-C1_pred-C1.png,C1,C1,0.9573,True
+gradcam_02_true-C1_pred-C1.png,C1,C1,0.9038,True
+gradcam_03_true-C2_pred-C2.png,C2,C2,0.9547,True
+gradcam_04_true-C2_pred-C2.png,C2,C2,0.551,True
+gradcam_05_true-C3_pred-C3.png,C3,C3,0.9702,True
+gradcam_06_true-C3_pred-C3.png,C3,C3,0.7317,True
+gradcam_07_true-C4_pred-C4.png,C4,C4,0.9778,True
+gradcam_08_true-C4_pred-C5.png,C4,C5,0.7864,False
+gradcam_09_true-C5_pred-C5.png,C5,C5,0.9576,True
+gradcam_10_true-C5_pred-C5.png,C5,C5,0.6218,True
+gradcam_11_true-C4_pred-C5.png,C4,C5,0.5707,False
+gradcam_12_true-C2_pred-C2.png,C2,C2,0.6404,True
