@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this software or model, please cite it as below."
+title: "Saffron adulteration detection with transfer learning and an in-browser Grad-CAM classifier"
+abstract: >-
+  Five-class image classification of saffron threads (two pure drying methods and three common
+  counterfeits) using ImageNet transfer learning (ResNet50V2 selected over EfficientNetB3 and DenseNet121),
+  reaching 97.3% accuracy on a held-out test set, with Grad-CAM explanations and a TensorFlow.js web app
+  that runs entirely in the browser. Rebuilt from a B.Tech thesis at IIT Kharagpur.
+type: software
+authors:
+  - family-names: Rabet
+    given-names: Peerzada Mohammad
+    email: peerzada.rabet2@gmail.com
+    affiliation: "Indian Institute of Technology Kharagpur (B.Tech, Agricultural and Food Engineering, 2024)"
+repository-code: "https://github.com/peerzadarabet1807/saffron-adulteration-detection"
+url: "https://peerzadarabet1807.github.io/saffron-adulteration-detection/"
+license: MIT
+version: 1.0.0
+date-released: "2026-09-24"
+keywords:
+  - saffron
+  - food fraud
+  - adulteration detection
+  - computer vision
+  - transfer learning
+  - grad-cam
+  - tensorflow.js
+references:
+  - type: article
+    title: "Grading and fraud detection of saffron via learning-to-augment incorporated Inception-v4 CNN"
+    authors:
+      - family-names: Momeny
+        given-names: Mohammad
+      - family-names: Neshat
+        given-names: Ali Asghar
+      - family-names: Jahanbakhshi
+        given-names: Ahmad
+      - family-names: Mahmoudi
+        given-names: Majid
+      - family-names: Ampatzidis
+        given-names: Yiannis
+      - family-names: Radeva
+        given-names: Petia
+    journal: "Food Control"
+    volume: 147
+    start: 109554
+    year: 2023
+    doi: "10.1016/j.foodcont.2022.109554"
