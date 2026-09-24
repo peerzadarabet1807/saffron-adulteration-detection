@@ -1,0 +1,224 @@
+{
+  "project": "Saffron adulteration detection (transfer learning)",
+  "generated_utc": "2026-09-23T17:21:39+00:00",
+  "best_model": "ResNet50V2",
+  "selection_criterion": "highest validation macro-F1 (ties: lowest validation log-loss)",
+  "hyperparameters": {
+    "learning_rate": 0.001,
+    "batch_size": 16,
+    "dropout": 0.2,
+    "img_size": 300,
+    "optimizer": "AdamW",
+    "weight_decay": 0.0001,
+    "label_smoothing": 0.1,
+    "head_epochs_max": 15,
+    "finetune_epochs_max": 35,
+    "finetune_fraction": 0.3,
+    "finetune_lr_factor": 0.1,
+    "finetune_improved": true,
+    "class_weights": null,
+    "mixed_precision_training": true,
+    "seed": 42
+  },
+  "test": {
+    "n_images": 75,
+    "accuracy": 0.9733333333333334,
+    "macro_f1": 0.9732142857142858,
+    "weighted_f1": 0.9732142857142857,
+    "macro_roc_auc_ovr": 0.9993333333333334,
+    "per_class": {
+      "C1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15,
+        "roc_auc": 1.0,
+        "average_precision": 1.0
+      },
+      "C2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15,
+        "roc_auc": 1.0,
+        "average_precision": 1.0
+      },
+      "C3": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15,
+        "roc_auc": 1.0,
+        "average_precision": 1.0
+      },
+      "C4": {
+        "precision": 1.0,
+        "recall": 0.8666666666666667,
+        "f1": 0.9285714285714286,
+        "support": 15,
+        "roc_auc": 0.9977777777777778,
+        "average_precision": 0.9921568627450981
+      },
+      "C5": {
+        "precision": 0.8823529411764706,
+        "recall": 1.0,
+        "f1": 0.9375,
+        "support": 15,
+        "roc_auc": 0.9988888888888888,
+        "average_precision": 0.9958333333333333
+      }
+    },
+    "confusion_matrix": [
+      [
+        15,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        15,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        15,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        13,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        15
+      ]
+    ]
+  },
+  "validation": {
+    "n_images": 75,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "loss": 0.12458357531625656
+  },
+  "model_comparison": [
+    {
+      "backbone": "ResNet50V2",
+      "val_macro_f1": 1.0,
+      "val_accuracy": 1.0,
+      "val_loss": 0.12458357531625656,
+      "learning_rate": 0.001,
+      "batch_size": 16,
+      "dropout": 0.2,
+      "finetune_improved": true,
+      "params_M": 23.58,
+      "train_min": 2.6
+    },
+    {
+      "backbone": "EfficientNetB3",
+      "val_macro_f1": 0.9866518353726363,
+      "val_accuracy": 0.9866666666666667,
+      "val_loss": 0.15550630426440032,
+      "learning_rate": 0.001,
+      "batch_size": 16,
+      "dropout": 0.2,
+      "finetune_improved": true,
+      "params_M": 10.79,
+      "train_min": 3.5
+    },
+    {
+      "backbone": "DenseNet121",
+      "val_macro_f1": 0.9737068965517242,
+      "val_accuracy": 0.9733333333333334,
+      "val_loss": 0.20989532252101897,
+      "learning_rate": 0.001,
+      "batch_size": 16,
+      "dropout": 0.2,
+      "finetune_improved": true,
+      "params_M": 7.04,
+      "train_min": 3.7
+    }
+  ],
+  "thesis_baseline": {
+    "val_accuracy": 0.7083,
+    "per_class_f1": {
+      "C1": 0.8,
+      "C2": 0.6667,
+      "C3": 0.9677,
+      "C4": 0.75,
+      "C5": 0.5
+    }
+  },
+  "data": {
+    "data_dir": "/content/drive/MyDrive/data",
+    "n_valid_images": 499,
+    "n_rejected": 1,
+    "split_counts": {
+      "train": {
+        "C1": 70,
+        "C2": 69,
+        "C3": 70,
+        "C4": 70,
+        "C5": 70
+      },
+      "val": {
+        "C1": 15,
+        "C2": 15,
+        "C3": 15,
+        "C4": 15,
+        "C5": 15
+      },
+      "test": {
+        "C1": 15,
+        "C2": 15,
+        "C3": 15,
+        "C4": 15,
+        "C5": 15
+      }
+    }
+  },
+  "deployment": {
+    "input_name": "image",
+    "input_shape": [
+      null,
+      300,
+      300,
+      3
+    ],
+    "input_dtype": "float32",
+    "input_range": "raw RGB pixel values in [0, 255]; resize to IMG_SIZE x IMG_SIZE; normalisation is built into the model",
+    "output": "softmax probabilities, index order = class_names.json",
+    "class_names": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5"
+    ],
+    "class_descriptions": {
+      "C1": "Pure saffron (dryer)",
+      "C2": "Pure saffron (pressed)",
+      "C3": "Dried saffron stem",
+      "C4": "Colored saffron stem",
+      "C5": "Artificial saffron"
+    }
+  },
+  "environment": {
+    "tensorflow": "2.20.0",
+    "keras": "3.13.2",
+    "albumentations": "2.0.8",
+    "opencv": "5.0.0",
+    "gpu": "Tesla T4"
+  }
+}

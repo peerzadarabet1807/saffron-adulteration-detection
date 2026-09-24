@@ -1,0 +1,53 @@
+{
+ "description": "Keras (best_model.keras) vs TF.js graph model parity, measured with web/tests/parity.node.test.ts on the TF.js WASM backend in Node. Thresholds: 100% argmax agreement, max |prob diff| <= 0.02, CAM Pearson >= 0.98. 'test' = the reproduced 75-image held-out test split; 'samples' = the 10 web samples plus the EXIF-rotated fixture.",
+ "generated": "2026-09-24",
+ "shipped_variant": "float16",
+ "variants": {
+  "float16": {
+   "samples": {
+    "backend": "wasm",
+    "images": 11,
+    "argmaxAgreement": 1,
+    "accuracy": 0.818182,
+    "maxProbDiff": 0.000622,
+    "minCamCorr": 0.999992,
+    "leakedTensors": 0
+   },
+   "test": {
+    "backend": "wasm",
+    "images": 75,
+    "argmaxAgreement": 1,
+    "accuracy": 0.973333,
+    "maxProbDiff": 0.002105,
+    "minCamCorr": 0.99998,
+    "leakedTensors": 0
+   },
+   "size_mb": 47.2,
+   "files": 13,
+   "passes": true
+  },
+  "uint8": {
+   "samples": {
+    "backend": "wasm",
+    "images": 11,
+    "argmaxAgreement": 1,
+    "accuracy": 0.818182,
+    "maxProbDiff": 0.055941,
+    "minCamCorr": 0.989659,
+    "leakedTensors": 0
+   },
+   "test": {
+    "backend": "wasm",
+    "images": 75,
+    "argmaxAgreement": 1,
+    "accuracy": 0.973333,
+    "maxProbDiff": 0.122132,
+    "minCamCorr": 0.966491,
+    "leakedTensors": 0
+   },
+   "size_mb": 23.7,
+   "files": 7,
+   "passes": false
+  }
+ }
+}

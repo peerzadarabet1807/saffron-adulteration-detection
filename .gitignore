@@ -1,5 +1,5 @@
 # --- Raw inputs (never committed) ---
-data/
+/data/
 saffron_adulteration_artifacts/
 *.keras
 saved_model/
@@ -7,7 +7,7 @@ saved_model/
 *.zip
 
 # --- Build / intermediate artefacts ---
-build/
+/build/
 dist/
 *.npy
 *.npz

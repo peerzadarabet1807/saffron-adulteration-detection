@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Saffron Check · in-browser saffron adulteration detection</title>
+    <meta
+      name="description"
+      content="Classify a photo of a saffron thread as pure (dryer- or press-dried) or one of three counterfeits. A ResNet50V2 model with Grad-CAM runs entirely in your browser; the photo never leaves your device."
+    />
+    <meta name="theme-color" content="#fbf7f0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171411" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content="Saffron Check: saffron adulteration detection in your browser" />
+    <meta
+      property="og:description"
+      content="Transfer-learning classifier (97.3% held-out test accuracy) with Grad-CAM explanations, running fully client-side with TensorFlow.js."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <script>
+      // apply the saved or system theme before first paint (no flash)
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 2rem; font-family: system-ui">
+        Saffron Check runs a neural network in your browser and needs JavaScript enabled.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
