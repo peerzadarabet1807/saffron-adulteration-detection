@@ -1,0 +1,85 @@
+{
+ "note": "Held-out test images (never used for training, validation or model selection), downscaled to 600 px. Chosen per class by rule: the median and the lowest true-class probability.",
+ "samples": [
+  {
+   "file": "sample-01.jpg",
+   "thumb": "thumbs/sample-01.webp",
+   "trueClass": "C4",
+   "kind": "hardest",
+   "description": "Saffron stem coloured with food dye (counterfeit). The hardest C4 test image (lowest C4 probability in the test set).",
+   "source": "C4/IMG_9892.jpg"
+  },
+  {
+   "file": "sample-02.jpg",
+   "thumb": "thumbs/sample-02.webp",
+   "trueClass": "C2",
+   "kind": "hardest",
+   "description": "Pure saffron stigma, dried by pressing. The hardest C2 test image (lowest C2 probability in the test set).",
+   "source": "C2/IMG_0042.jpg"
+  },
+  {
+   "file": "sample-03.jpg",
+   "thumb": "thumbs/sample-03.webp",
+   "trueClass": "C2",
+   "kind": "typical",
+   "description": "Pure saffron stigma, dried by pressing. A typical C2 test image (median C2 probability).",
+   "source": "C2/IMG_9972.jpg"
+  },
+  {
+   "file": "sample-04.jpg",
+   "thumb": "thumbs/sample-04.webp",
+   "trueClass": "C5",
+   "kind": "typical",
+   "description": "Synthetic / artificial saffron (counterfeit). A typical C5 test image (median C5 probability).",
+   "source": "C5/IMG_9812.jpg"
+  },
+  {
+   "file": "sample-05.jpg",
+   "thumb": "thumbs/sample-05.webp",
+   "trueClass": "C3",
+   "kind": "hardest",
+   "description": "Dried saffron stem (counterfeit). The hardest C3 test image (lowest C3 probability in the test set).",
+   "source": "C3/Img_91.jpg"
+  },
+  {
+   "file": "sample-06.jpg",
+   "thumb": "thumbs/sample-06.webp",
+   "trueClass": "C4",
+   "kind": "typical",
+   "description": "Saffron stem coloured with food dye (counterfeit). A typical C4 test image (median C4 probability).",
+   "source": "C4/IMG_9962.jpg"
+  },
+  {
+   "file": "sample-07.jpg",
+   "thumb": "thumbs/sample-07.webp",
+   "trueClass": "C5",
+   "kind": "hardest",
+   "description": "Synthetic / artificial saffron (counterfeit). The hardest C5 test image (lowest C5 probability in the test set).",
+   "source": "C5/IMG_9862.jpg"
+  },
+  {
+   "file": "sample-08.jpg",
+   "thumb": "thumbs/sample-08.webp",
+   "trueClass": "C3",
+   "kind": "typical",
+   "description": "Dried saffron stem (counterfeit). A typical C3 test image (median C3 probability).",
+   "source": "C3/Img_48.jpg"
+  },
+  {
+   "file": "sample-09.jpg",
+   "thumb": "thumbs/sample-09.webp",
+   "trueClass": "C1",
+   "kind": "typical",
+   "description": "Pure saffron stigma, dried with a dryer. A typical C1 test image (median C1 probability).",
+   "source": "C1/Img_88.jpg"
+  },
+  {
+   "file": "sample-10.jpg",
+   "thumb": "thumbs/sample-10.webp",
+   "trueClass": "C1",
+   "kind": "hardest",
+   "description": "Pure saffron stigma, dried with a dryer. The hardest C1 test image (lowest C1 probability in the test set).",
+   "source": "C1/Img_35.jpg"
+  }
+ ]
+}

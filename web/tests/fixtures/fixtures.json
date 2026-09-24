@@ -1,0 +1,15 @@
+[
+ {
+  "file": "exif-rotated.jpg",
+  "trueClass": "C4",
+  "sameAs": "sample-01.jpg",
+  "note": "Same image as the sample, stored rotated with EXIF Orientation=6."
+ },
+ {
+  "file": "sample.heic",
+  "trueClass": "C2",
+  "sameAs": "sample-02.jpg",
+  "pilReadable": false,
+  "note": "The sample re-encoded as HEIC."
+ }
+]

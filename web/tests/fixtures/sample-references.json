@@ -1,0 +1,134 @@
+[
+ {
+  "id": "sample-01.jpg",
+  "trueClass": "C4",
+  "predicted": "C5",
+  "probabilities": [
+   0.0293599,
+   0.0164293,
+   0.0500121,
+   0.0950166,
+   0.8091821
+  ]
+ },
+ {
+  "id": "sample-02.jpg",
+  "trueClass": "C2",
+  "predicted": "C2",
+  "probabilities": [
+   0.0348839,
+   0.5249095,
+   0.0243219,
+   0.0063875,
+   0.4094973
+  ]
+ },
+ {
+  "id": "sample-03.jpg",
+  "trueClass": "C2",
+  "predicted": "C2",
+  "probabilities": [
+   0.0080869,
+   0.9013387,
+   0.0129892,
+   0.0521351,
+   0.0254501
+  ]
+ },
+ {
+  "id": "sample-04.jpg",
+  "trueClass": "C5",
+  "predicted": "C5",
+  "probabilities": [
+   0.0177406,
+   0.0098995,
+   0.017489,
+   0.0227466,
+   0.9321244
+  ]
+ },
+ {
+  "id": "sample-05.jpg",
+  "trueClass": "C3",
+  "predicted": "C3",
+  "probabilities": [
+   0.0452286,
+   0.0450309,
+   0.7560536,
+   0.0611528,
+   0.0925341
+  ]
+ },
+ {
+  "id": "sample-06.jpg",
+  "trueClass": "C4",
+  "predicted": "C4",
+  "probabilities": [
+   0.0231292,
+   0.0424693,
+   0.006338,
+   0.9240584,
+   0.0040052
+  ]
+ },
+ {
+  "id": "sample-07.jpg",
+  "trueClass": "C5",
+  "predicted": "C5",
+  "probabilities": [
+   0.0311774,
+   0.017072,
+   0.0211183,
+   0.2552527,
+   0.6753796
+  ]
+ },
+ {
+  "id": "sample-08.jpg",
+  "trueClass": "C3",
+  "predicted": "C3",
+  "probabilities": [
+   0.0170677,
+   0.0218041,
+   0.9154904,
+   0.01306,
+   0.0325777
+  ]
+ },
+ {
+  "id": "sample-09.jpg",
+  "trueClass": "C1",
+  "predicted": "C1",
+  "probabilities": [
+   0.9332282,
+   0.0175881,
+   0.0110632,
+   0.014835,
+   0.0232856
+  ]
+ },
+ {
+  "id": "sample-10.jpg",
+  "trueClass": "C1",
+  "predicted": "C1",
+  "probabilities": [
+   0.9024103,
+   0.0474578,
+   0.0236197,
+   0.0079966,
+   0.0185156
+  ]
+ },
+ {
+  "id": "fixtures/exif-rotated.jpg",
+  "trueClass": "C4",
+  "predicted": "C5",
+  "probabilities": [
+   0.0280783,
+   0.0149357,
+   0.0480324,
+   0.0731865,
+   0.8357671
+  ]
+ }
+]

@@ -51,6 +51,7 @@ convert() {  # $1 = variant name, remaining args = quantisation flags
     "$@" \
     --weight_shard_size_bytes="$SHARD_BYTES" \
     "$SAVED_MODEL" "$OUT/$name"
+  "$PY" "$ROOT/scripts/fix_tfjs_bias.py" "$OUT/$name"
   echo "== $name: $(du -sh "$OUT/$name" | cut -f1), $(ls "$OUT/$name" | wc -l) files"
 }
 
