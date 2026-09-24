@@ -1,0 +1,7 @@
+# Python 3.11. Versions of TensorFlow / Keras match the Colab training run (see results/metrics.json).
+tensorflow==2.20.0
+keras==3.13.2
+numpy==2.1.3
+pillow==11.3.0
+opencv-python-headless==4.12.0.88
+scikit-learn==1.7.2

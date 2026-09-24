@@ -1,0 +1,14 @@
+# Isolated venv for the TF.js converter (Python 3.11). Install in two steps, see convert_to_tfjs.sh:
+#   pip install -r scripts/requirements-convert.txt
+#   pip install --no-deps tensorflowjs==4.22.0
+#
+# tensorflowjs 4.22 declares tensorflow-decision-forests and flax as hard dependencies. Neither is needed to
+# convert a SavedModel, TF-DF has no Windows wheels and pins an exact TensorFlow version, so both are skipped
+# and scripts/tfjs_shims provides an empty `tensorflow_decision_forests` module for the import.
+tensorflow==2.20.0
+tf_keras==2.20.1
+tensorflow-hub==0.16.1
+jax[cpu]==0.10.2
+packaging==23.2
+six==1.17.0
+importlib_resources==7.1.0
