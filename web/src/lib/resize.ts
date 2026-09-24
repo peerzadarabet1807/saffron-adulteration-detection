@@ -75,7 +75,8 @@ export function areaResizeToRGB(
             const rowBase = ((y * isy + j) * sw + x * isx) * channels + c;
             for (let i = 0; i < isx; i++) sum += src[rowBase + i * channels];
           }
-          out[(y * dw + x) * 3 + c] = area === 4 ? (sum + 2) >> 2 : toByte(Math.fround(sum * Math.fround(1 / area)));
+          out[(y * dw + x) * 3 + c] =
+            area === 4 ? (sum + 2) >> 2 : toByte(Math.fround(sum * Math.fround(1 / area)));
         }
       }
     }

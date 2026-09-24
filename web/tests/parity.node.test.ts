@@ -73,7 +73,13 @@ describe.skipIf(SETS.length === 0)('TF.js model matches Keras', () => {
         correct += row.trueClass && CLASSES[pred] === row.trueClass ? 1 : 0;
         maxDiff = Math.max(maxDiff, diff);
         minCorr = Math.min(minCorr, corr);
-        perImage.push({ id: row.id, keras: row.predicted, tfjs: CLASSES[pred], maxProbDiff: diff, camCorr: corr });
+        perImage.push({
+          id: row.id,
+          keras: row.predicted,
+          tfjs: CLASSES[pred],
+          maxProbDiff: diff,
+          camCorr: corr,
+        });
       }
 
       const summary = {
@@ -90,7 +96,10 @@ describe.skipIf(SETS.length === 0)('TF.js model matches Keras', () => {
       console.log(JSON.stringify(summary));
       mkdirSync(join(ROOT, 'build', 'parity'), { recursive: true });
       const tag = MODEL_DIR.split(/[\\/]/).slice(-2).join('_');
-      writeFileSync(join(ROOT, 'build', 'parity', `${tag}_${set}.json`), JSON.stringify({ summary, perImage }, null, 1));
+      writeFileSync(
+        join(ROOT, 'build', 'parity', `${tag}_${set}.json`),
+        JSON.stringify({ summary, perImage }, null, 1),
+      );
 
       expect(summary.argmaxAgreement).toBe(1);
       expect(maxDiff).toBeLessThanOrEqual(MAX_PROB_DIFF);

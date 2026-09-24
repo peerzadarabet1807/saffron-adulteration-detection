@@ -30,7 +30,8 @@ export async function runModel(model: GraphModel, rgb: Uint8Array | Float32Array
   });
   try {
     const [probabilities, cam] = await Promise.all([probT.data(), camT.data()]);
-    return { probabilities: probabilities as Float32Array, cam: cam as Float32Array };
+    // copies: some backends hand out their internal buffers, and the worker transfers these to the UI
+    return { probabilities: Float32Array.from(probabilities), cam: Float32Array.from(cam) };
   } finally {
     tf.dispose([probT, camT]);
   }

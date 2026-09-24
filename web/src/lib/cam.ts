@@ -82,7 +82,10 @@ export function jet(v: number): [number, number, number] {
   ];
 }
 
-/** Colour-map a [0, 1] field into opaque RGBA pixels. */
+/** Opacity of a heatmap pixel: faint where the map is weak, so the photo stays readable under it. */
+export const heatmapAlpha = (v: number) => clamp01(0.12 + 0.88 * Math.sqrt(clamp01(v)));
+
+/** Colour-map a [0, 1] field into RGBA pixels (alpha weighted by activation, see heatmapAlpha). */
 export function heatmapRGBA(field: ArrayLike<number>): Uint8ClampedArray {
   const out = new Uint8ClampedArray(field.length * 4);
   for (let i = 0; i < field.length; i++) {
@@ -90,7 +93,7 @@ export function heatmapRGBA(field: ArrayLike<number>): Uint8ClampedArray {
     out[i * 4] = r;
     out[i * 4 + 1] = g;
     out[i * 4 + 2] = b;
-    out[i * 4 + 3] = 255;
+    out[i * 4 + 3] = Math.round(255 * heatmapAlpha(field[i]));
   }
   return out;
 }
