@@ -34,7 +34,7 @@ function usePaintedCanvas(pixels: Uint8ClampedArray, size: number) {
 export function CamViewer({ displayUrl, width, height, cam, input, predicted, alt }: Props) {
   const [view, setView] = useState<'photo' | 'model'>('photo');
   const [showCam, setShowCam] = useState(true);
-  const [opacity, setOpacity] = useState(0.8);
+  const [opacity, setOpacity] = useState(0.85);
   const [camClass, setCamClass] = useState<ClassId>(predicted);
   const ids = { opacity: useId(), select: useId(), caption: useId() };
 

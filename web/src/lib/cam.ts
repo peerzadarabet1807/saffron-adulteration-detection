@@ -82,8 +82,8 @@ export function jet(v: number): [number, number, number] {
   ];
 }
 
-/** Opacity of a heatmap pixel: faint where the map is weak, so the photo stays readable under it. */
-export const heatmapAlpha = (v: number) => clamp01(0.12 + 0.88 * Math.sqrt(clamp01(v)));
+/** Opacity of a heatmap pixel: proportional to activation, so the photo stays readable where the map is weak. */
+export const heatmapAlpha = (v: number) => clamp01(0.04 + 0.96 * clamp01(v));
 
 /** Colour-map a [0, 1] field into RGBA pixels (alpha weighted by activation, see heatmapAlpha). */
 export function heatmapRGBA(field: ArrayLike<number>): Uint8ClampedArray {

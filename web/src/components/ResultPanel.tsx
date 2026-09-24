@@ -116,18 +116,21 @@ function Result({ result, onAnother }: { result: ClassificationResult; onAnother
       </div>
 
       <div className="grid gap-8 p-5 sm:p-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-        <CamViewer
-          key={result.id}
-          displayUrl={result.displayUrl}
-          width={result.width}
-          height={result.height}
-          cam={prediction.cam}
-          input={prediction.input}
-          predicted={interpretation.top.id}
-          alt={`The photo that was classified (${sourceLabel}).`}
-        />
+        {/* on phones the verdict comes first; on wide screens the image sits on the left */}
+        <div className="order-2 lg:order-1">
+          <CamViewer
+            key={result.id}
+            displayUrl={result.displayUrl}
+            width={result.width}
+            height={result.height}
+            cam={prediction.cam}
+            input={prediction.input}
+            predicted={interpretation.top.id}
+            alt={`The photo that was classified (${sourceLabel}).`}
+          />
+        </div>
 
-        <div className="space-y-6">
+        <div className="order-1 space-y-6 lg:order-2">
           <VerdictBanner interpretation={interpretation} />
           <TopClass interpretation={interpretation} />
           <LowConfidenceWarning interpretation={interpretation} />

@@ -65,11 +65,12 @@ describe('colormap', () => {
   });
 
   it('makes weak regions faint and strong regions opaque', () => {
-    expect(heatmapAlpha(0)).toBeCloseTo(0.12);
+    expect(heatmapAlpha(0)).toBeCloseTo(0.04);
+    expect(heatmapAlpha(0.5)).toBeCloseTo(0.52);
     expect(heatmapAlpha(1)).toBe(1);
     const px = heatmapRGBA([0, 1]);
     expect(px).toHaveLength(8);
-    expect(px[3]).toBeLessThan(40);
+    expect(px[3]).toBeLessThan(15);
     expect(px[7]).toBe(255);
   });
 });
