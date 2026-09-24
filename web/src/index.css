@@ -1,0 +1,208 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. Text tokens meet WCAG AA (>= 4.5:1) on every surface in both themes; the two chart group
+ * colours (--pure / --fake) were validated for colour-vision-deficiency separation and >= 3:1 contrast
+ * against the card surface in each theme.
+ */
+:root {
+  color-scheme: light;
+  --paper: #fbf7f0;
+  --surface: #fffdf8;
+  --surface-2: #f5eee3;
+  --line: #e7ddcd;
+  --line-strong: #d3c5b0;
+  --ink: #1e1a16;
+  --ink-2: #4b433a;
+  --ink-3: #6b6155;
+  --crimson: #8b1e1e;
+  --crimson-hover: #741818;
+  --crimson-ink: #8b1e1e;
+  --on-crimson: #ffffff;
+  --gold: #e3a018;
+  --gold-ink: #875400;
+  --pure: #bf8209;
+  --fake: #b3322e;
+  --pure-soft: #fbf0d9;
+  --fake-soft: #f9e3e1;
+  --pure-ink: #6e4700;
+  --fake-ink: #8b1e1e;
+  --warn-soft: #fdebdd;
+  --warn-line: #e2894d;
+  --warn-ink: #9a3412;
+  --track: #efe6d8;
+  --focus: #b3322e;
+  --shadow: 30 20 10;
+}
+
+.dark {
+  color-scheme: dark;
+  --paper: #171411;
+  --surface: #211d1a;
+  --surface-2: #2a2521;
+  --line: #3a332d;
+  --line-strong: #4e453d;
+  --ink: #f4eee6;
+  --ink-2: #d2c8bb;
+  --ink-3: #aba092;
+  --crimson: #b3322e;
+  --crimson-hover: #c2413b;
+  --crimson-ink: #f0908a;
+  --on-crimson: #ffffff;
+  --gold: #e3a018;
+  --gold-ink: #edb44a;
+  --pure: #bf8209;
+  --fake: #bd3b35;
+  --pure-soft: #2e2615;
+  --fake-soft: #33201e;
+  --pure-ink: #f0c064;
+  --fake-ink: #f2a09a;
+  --warn-soft: #33241a;
+  --warn-line: #c2622a;
+  --warn-ink: #fdba8c;
+  --track: #2f2925;
+  --focus: #edb44a;
+  --shadow: 0 0 0;
+}
+
+@theme inline {
+  --font-serif: 'Fraunces Variable', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-crimson: var(--crimson);
+  --color-crimson-hover: var(--crimson-hover);
+  --color-crimson-ink: var(--crimson-ink);
+  --color-on-crimson: var(--on-crimson);
+  --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
+  --color-pure: var(--pure);
+  --color-fake: var(--fake);
+  --color-pure-soft: var(--pure-soft);
+  --color-fake-soft: var(--fake-soft);
+  --color-pure-ink: var(--pure-ink);
+  --color-fake-ink: var(--fake-ink);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-line: var(--warn-line);
+  --color-warn-ink: var(--warn-ink);
+  --color-track: var(--track);
+  --color-focus: var(--focus);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--paper);
+    /* faint paper grain */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--gold) 45%, transparent);
+  }
+}
+
+@layer components {
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    box-shadow:
+      0 1px 0 rgb(var(--shadow) / 0.03),
+      0 12px 32px -18px rgb(var(--shadow) / 0.25);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.625rem 1.125rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    transition:
+      background-color 150ms,
+      border-color 150ms,
+      color 150ms;
+  }
+
+  .btn-primary {
+    background: var(--crimson);
+    color: var(--on-crimson);
+  }
+
+  .btn-primary:hover {
+    background: var(--crimson-hover);
+  }
+
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--ink-3);
+  }
+
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
