@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { CLASS_INFO, GROUP_LABEL, type Group } from '../lib/classes';
 import { formatPercent, type RankedClass } from '../lib/prediction';
 
@@ -43,7 +43,7 @@ export function ProbabilityBars({ ranked }: { ranked: RankedClass[] }) {
                 <span className="tabular shrink-0 font-semibold text-ink">{formatPercent(probability)}</span>
               </div>
               <div className="mt-1.5 h-3 w-full rounded-r-[4px] bg-track" aria-hidden="true">
-                <motion.div
+                <m.div
                   className="h-full origin-left rounded-r-[4px]"
                   style={{
                     width: `${Math.max(probability * 100, 0.6)}%`,

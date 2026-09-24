@@ -25,8 +25,6 @@
     "check:model": "node scripts/check-model-size.mjs"
   },
   "dependencies": {
-    "@fontsource-variable/fraunces": "5.3.0",
-    "@fontsource-variable/inter": "5.3.0",
     "@tensorflow/tfjs-backend-wasm": "4.22.0",
     "@tensorflow/tfjs-backend-webgl": "4.22.0",
     "@tensorflow/tfjs-converter": "4.22.0",

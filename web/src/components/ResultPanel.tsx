@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import type { ClassificationResult, JobState, JobStep } from '../hooks/useClassifier';
 import { CLASS_INFO } from '../lib/classes';
@@ -26,7 +26,7 @@ export function ResultPanel({ job, onAnother }: Props) {
     <section id="result" aria-labelledby="result-heading" className="scroll-mt-24">
       <AnimatePresence mode="wait">
         {job.status === 'working' ? (
-          <motion.div
+          <m.div
             key="working"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -43,9 +43,9 @@ export function ResultPanel({ job, onAnother }: Props) {
               </h2>
               <p className="text-sm text-ink-2">{STEP_LABEL[job.step]}</p>
             </div>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div
+          <m.div
             key={job.result.id}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ export function ResultPanel({ job, onAnother }: Props) {
             transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
           >
             <Result result={job.result} onAnother={onAnother} />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

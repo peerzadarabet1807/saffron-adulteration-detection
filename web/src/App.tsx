@@ -1,4 +1,4 @@
-import { MotionConfig } from 'framer-motion';
+import { LazyMotion, MotionConfig, domAnimation } from 'framer-motion';
 import { useCallback, useState } from 'react';
 import { AboutModel } from './components/AboutModel';
 import { Footer } from './components/Footer';
@@ -75,60 +75,62 @@ export default function App() {
   }, [reset]);
 
   return (
-    <MotionConfig reducedMotion="user">
-      <a
-        href="#main"
-        className="sr-only z-50 rounded-full bg-crimson px-4 py-2 text-on-crimson focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
-      >
-        Skip to content
-      </a>
-      <div id="top" />
-      <Header theme={theme} onToggleTheme={toggle} />
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">
+        <a
+          href="#main"
+          className="sr-only z-50 rounded-full bg-crimson px-4 py-2 text-on-crimson focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Skip to content
+        </a>
+        <div id="top" />
+        <Header theme={theme} onToggleTheme={toggle} />
 
-      <main id="main" className="mx-auto max-w-6xl space-y-16 px-4 pt-10 sm:px-6 sm:pt-14">
-        <section id="classify" aria-labelledby="hero-heading" className="scroll-mt-20 space-y-8">
-          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
-            <div className="space-y-6 lg:pt-4">
-              <p className="eyebrow">01 · Classify a thread</p>
-              <h1
-                id="hero-heading"
-                className="font-serif text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl"
-              >
-                Is that saffron <em className="font-medium text-crimson-ink">real</em>?
-              </h1>
-              <p className="max-w-xl text-lg text-ink-2">
-                Photograph a single thread and a ResNet50V2 model, running entirely in your browser, tells you
-                which of five classes it most resembles: two kinds of pure saffron or three common
-                counterfeits, with a Grad-CAM map of where it looked.
-              </p>
-              <PhotoGuidelines open={guidelinesOpen} onToggle={setGuidelinesOpen} />
+        <main id="main" className="mx-auto max-w-6xl space-y-16 px-4 pt-10 sm:px-6 sm:pt-14">
+          <section id="classify" aria-labelledby="hero-heading" className="scroll-mt-20 space-y-8">
+            <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
+              <div className="space-y-6 lg:pt-4">
+                <p className="eyebrow">01 · Classify a thread</p>
+                <h1
+                  id="hero-heading"
+                  className="font-serif text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl"
+                >
+                  Is that saffron <em className="font-medium text-crimson-ink">real</em>?
+                </h1>
+                <p className="max-w-xl text-lg text-ink-2">
+                  Photograph a single thread and a ResNet50V2 model, running entirely in your browser, tells
+                  you which of five classes it most resembles: two kinds of pure saffron or three common
+                  counterfeits, with a Grad-CAM map of where it looked.
+                </p>
+                <PhotoGuidelines open={guidelinesOpen} onToggle={setGuidelinesOpen} />
+              </div>
+              <UploadCard
+                busy={busy}
+                error={job.status === 'error' ? job.message : undefined}
+                onFile={onFile}
+                status={<ModelStatus model={model} lastInferenceMs={lastInferenceMs} onRetry={retryModel} />}
+              />
             </div>
-            <UploadCard
+
+            <ResultPanel job={job} onAnother={onAnother} />
+
+            <SampleGallery
+              samples={samples}
+              revealed={revealed}
+              activeFile={activeSample}
               busy={busy}
-              error={job.status === 'error' ? job.message : undefined}
-              onFile={onFile}
-              status={<ModelStatus model={model} lastInferenceMs={lastInferenceMs} onRetry={retryModel} />}
+              onPick={onSample}
             />
-          </div>
+          </section>
 
-          <ResultPanel job={job} onAnother={onAnother} />
+          <AboutModel />
+        </main>
 
-          <SampleGallery
-            samples={samples}
-            revealed={revealed}
-            activeFile={activeSample}
-            busy={busy}
-            onPick={onSample}
-          />
-        </section>
-
-        <AboutModel />
-      </main>
-
-      <Footer />
-      <p aria-live="polite" className="sr-only" data-testid="live-region">
-        {announcement(job)}
-      </p>
-    </MotionConfig>
+        <Footer />
+        <p aria-live="polite" className="sr-only" data-testid="live-region">
+          {announcement(job)}
+        </p>
+      </MotionConfig>
+    </LazyMotion>
   );
 }

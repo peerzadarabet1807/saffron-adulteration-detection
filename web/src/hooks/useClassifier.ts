@@ -98,8 +98,23 @@ export function useClassifier() {
     const onProgress = (p: LoadProgress) =>
       setModel({ status: 'loading', phase: p.phase, fraction: p.fraction });
     progressListeners.add(onProgress);
-    watchModel(initModel());
+    // The model is 47 MB: start downloading once the page itself has loaded and painted, so fonts, styles
+    // and the app are not competing with it. Classifying earlier starts it straight away (see classify).
+    // ?preload=0 skips the background download until the first classification (used to measure page
+    // performance without the model, since Lighthouse cannot block a worker's requests).
+    let cancelled = new URLSearchParams(window.location.search).get('preload') === '0';
+    const start = () => {
+      if (!cancelled) watchModel(initModel());
+    };
+    const whenIdle = () => {
+      if ('requestIdleCallback' in window) window.requestIdleCallback(start, { timeout: 1500 });
+      else setTimeout(start, 200);
+    };
+    if (document.readyState === 'complete') whenIdle();
+    else window.addEventListener('load', whenIdle, { once: true });
     return () => {
+      cancelled = true;
+      window.removeEventListener('load', whenIdle);
       progressListeners.delete(onProgress);
     };
   }, [watchModel]);
@@ -120,58 +135,63 @@ export function useClassifier() {
    * Validate, decode and classify one image. `input` may be a lazy loader (e.g. fetching a sample) so that
    * its failures surface as job errors too. Resolves with the result, or null if it failed or was superseded.
    */
-  const classify = useCallback(async (input: Blob | (() => Promise<Blob>), source: ImageSource) => {
-    const id = ++jobId.current;
-    const isStale = () => id !== jobId.current;
-    let displayUrl: string | null = null;
-    setJob({ status: 'working', step: 'reading', source });
-    try {
-      const file = typeof input === 'function' ? await input() : input;
-      const validation = await validateFile(file);
-      if (!validation.ok) throw new UserFacingError(validation.message);
-      if (isStale()) return null;
+  const classify = useCallback(
+    async (input: Blob | (() => Promise<Blob>), source: ImageSource) => {
+      const id = ++jobId.current;
+      const isStale = () => id !== jobId.current;
+      let displayUrl: string | null = null;
+      setJob({ status: 'working', step: 'reading', source });
+      try {
+        const file = typeof input === 'function' ? await input() : input;
+        const validation = await validateFile(file);
+        if (!validation.ok) throw new UserFacingError(validation.message);
+        if (isStale()) return null;
 
-      setJob({ status: 'working', step: 'decoding', source });
-      const bitmap = await decodeImage(file, validation.kind);
-      const { width, height } = bitmap;
-      displayUrl = await makeDisplayUrl(bitmap);
-      if (isStale()) {
-        bitmap.close();
+        setJob({ status: 'working', step: 'decoding', source });
+        const bitmap = await decodeImage(file, validation.kind);
+        const { width, height } = bitmap;
+        displayUrl = await makeDisplayUrl(bitmap);
+        if (isStale()) {
+          bitmap.close();
+          return null;
+        }
+
+        if (!readyInfo) setJob({ status: 'working', step: 'waiting-for-model', source });
+        const modelReady = initModel();
+        watchModel(modelReady);
+        await modelReady;
+        if (isStale()) {
+          bitmap.close();
+          return null;
+        }
+        setJob({ status: 'working', step: 'classifying', source });
+        const prediction = await getClient().classify(bitmap);
+        if (isStale()) return null;
+
+        if (shownUrl.current) URL.revokeObjectURL(shownUrl.current);
+        shownUrl.current = displayUrl;
+        displayUrl = null; // now owned by the result
+        const result: ClassificationResult = {
+          id,
+          source,
+          displayUrl: shownUrl.current,
+          width,
+          height,
+          prediction,
+          interpretation: interpret(prediction.probabilities),
+          createdAt: new Date(),
+        };
+        setJob({ status: 'done', result });
+        return result;
+      } catch (e) {
+        if (!isStale()) setJob({ status: 'error', message: describeError(e), source });
         return null;
+      } finally {
+        if (displayUrl) URL.revokeObjectURL(displayUrl);
       }
-
-      if (!readyInfo) setJob({ status: 'working', step: 'waiting-for-model', source });
-      await initModel();
-      if (isStale()) {
-        bitmap.close();
-        return null;
-      }
-      setJob({ status: 'working', step: 'classifying', source });
-      const prediction = await getClient().classify(bitmap);
-      if (isStale()) return null;
-
-      if (shownUrl.current) URL.revokeObjectURL(shownUrl.current);
-      shownUrl.current = displayUrl;
-      displayUrl = null; // now owned by the result
-      const result: ClassificationResult = {
-        id,
-        source,
-        displayUrl: shownUrl.current,
-        width,
-        height,
-        prediction,
-        interpretation: interpret(prediction.probabilities),
-        createdAt: new Date(),
-      };
-      setJob({ status: 'done', result });
-      return result;
-    } catch (e) {
-      if (!isStale()) setJob({ status: 'error', message: describeError(e), source });
-      return null;
-    } finally {
-      if (displayUrl) URL.revokeObjectURL(displayUrl);
-    }
-  }, []);
+    },
+    [watchModel],
+  );
 
   const reset = useCallback(() => {
     jobId.current++;
