@@ -29,6 +29,12 @@ from saffron_common import (BEST_MODEL, BUILD_DIR, CLASS_NAMES, DATA_DIR, REFERE
 import keras  # noqa: E402
 import tensorflow as tf  # noqa: E402
 
+try:  # lets PIL open the HEIC e2e fixture
+    import pillow_heif
+    pillow_heif.register_heif_opener()
+except ImportError:
+    pillow_heif = None
+
 FIXTURES = WEB_DIR / "tests" / "fixtures"
 
 

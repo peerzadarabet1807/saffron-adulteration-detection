@@ -9,7 +9,6 @@
   "file": "sample.heic",
   "trueClass": "C2",
   "sameAs": "sample-02.jpg",
-  "pilReadable": false,
-  "note": "The sample re-encoded as HEIC."
+  "note": "The sample re-encoded as HEIC (reference decoded with pillow-heif)."
  }
 ]

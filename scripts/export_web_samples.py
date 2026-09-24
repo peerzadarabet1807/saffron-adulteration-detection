@@ -20,7 +20,6 @@ import json
 import random
 import sys
 
-import numpy as np
 from PIL import Image, ImageOps
 
 from saffron_common import CLASS_NAMES, DATA_DIR, REFERENCE_DIR, SEED, WEB_DIR
@@ -130,7 +129,7 @@ def main() -> int:
         upright, icc = load_upright(SAMPLES_DIR / src["file"])
         upright.save(FIXTURES / "sample.heic", "HEIF", quality=90)
         fixtures.append({"file": "sample.heic", "trueClass": src["trueClass"], "sameAs": src["file"],
-                         "pilReadable": False, "note": "The sample re-encoded as HEIC."})
+                         "note": "The sample re-encoded as HEIC (reference decoded with pillow-heif)."})
     except ImportError:
         print("pillow-heif not installed: skipping the HEIC fixture")
     # 3) not an image
