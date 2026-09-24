@@ -1,0 +1,40 @@
+# --- Raw inputs (never committed) ---
+data/
+saffron_adulteration_artifacts/
+*.keras
+saved_model/
+*.h5
+*.zip
+
+# --- Build / intermediate artefacts ---
+build/
+dist/
+*.npy
+*.npz
+
+# --- Python ---
+.venv*/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- Node / web ---
+node_modules/
+web/test-results/
+web/playwright-report/
+web/blob-report/
+web/.vite/
+*.tsbuildinfo
+coverage/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Secrets ---
+.env
+.env.*
+!.env.example
