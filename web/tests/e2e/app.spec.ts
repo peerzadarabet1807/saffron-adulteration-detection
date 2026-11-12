@@ -21,6 +21,19 @@ async function waitForModel(page: Page) {
   await expect(page.getByTestId('model-status')).toHaveAttribute('data-state', 'ready', { timeout: 180_000 });
 }
 
+/** CC BY 4.0, 多多123, Wikimedia Commons (docs/ood/credits.json): red yarn, which the input check turns away. */
+const OOD_FIXTURE = join(FIXTURES, '..', '..', '..', 'docs', 'ood', 'red_thread_yarn.jpg');
+
+async function lastInputCheck(page: Page): Promise<{ score: number; passed: boolean } | null> {
+  return page.evaluate(() =>
+    (
+      globalThis as unknown as {
+        __saffronDebug: { lastInputCheck(): { score: number; passed: boolean } | null };
+      }
+    ).__saffronDebug.lastInputCheck(),
+  );
+}
+
 /** The result panel for one input (an outgoing result can linger briefly during its exit animation). */
 const resultFor = (page: Page, source: string) =>
   page.locator(`[data-testid="result"][data-source="${source}"]`);
@@ -83,10 +96,13 @@ test.describe('saffron check', () => {
       const file = (await samples.nth(i).getAttribute('data-file'))!;
       await expect(resultFor(page, file).getByTestId('sample-reveal')).toBeVisible();
       const diff = await expectMatchesReference(page, reference(file));
+      const check = await lastInputCheck(page);
+      expect(check?.passed, `${file}: passes the input check`).toBe(true);
+      await expect(page.getByTestId('unchecked-label')).toHaveCount(0);
       const tensors = await tensorCount(page);
       baseline ??= tensors;
       console.log(
-        `${file}: ${reference(file).predicted} (true ${reference(file).trueClass}), diff ${diff.toFixed(4)}, tensors ${tensors}`,
+        `${file}: ${reference(file).predicted} (true ${reference(file).trueClass}), diff ${diff.toFixed(4)}, input check ${check!.score.toFixed(4)}, tensors ${tensors}`,
       );
       expect(tensors, 'tensor count must not grow between predictions').toBe(baseline);
     }
@@ -142,6 +158,80 @@ test.describe('saffron check', () => {
     await expect(page.getByTestId('backend')).toContainText('WebAssembly');
     await page.locator('[data-testid="sample"][data-file="sample-01.jpg"]').click();
     await expectMatchesReference(page, reference('sample-01.jpg'));
+  });
+
+  test('turns away a photo that is not a saffron thread, and can analyse it anyway @cross-browser', async ({
+    page,
+  }) => {
+    await page.goto('./');
+    await waitForModel(page);
+    await page.getByTestId('file-input').setInputFiles(OOD_FIXTURE);
+    const notice = page.getByTestId('input-check-notice');
+    await expect(notice).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: "This doesn't look like a single saffron thread on paper." }),
+    ).toBeFocused();
+    await expect(page.getByTestId('verdict')).toHaveCount(0);
+    await expect(page.getByTestId('prob-row')).toHaveCount(0);
+    await expect(page.getByTestId('live-region')).toContainText(
+      "This doesn't look like a single saffron thread on paper.",
+    );
+    expect((await lastInputCheck(page))?.passed).toBe(false);
+
+    await page.getByRole('link', { name: 'Photo tips' }).click();
+    await expect(page.locator('#photo-guidelines')).toHaveAttribute('open', '');
+
+    await page.getByTestId('analyse-anyway').click();
+    await expect(page.getByTestId('result')).toBeVisible();
+    await expect(page.getByTestId('unchecked-label')).toHaveText(
+      'Unchecked input: this photo did not look like a single saffron thread on paper, so treat the result with extra caution.',
+    );
+    await expect(page.getByTestId('verdict')).toBeVisible();
+    await expect(page.getByTestId('live-region')).toContainText('Unchecked input');
+
+    await page.getByRole('button', { name: /Classify another/ }).click();
+    await page.getByTestId('file-input').setInputFiles(OOD_FIXTURE);
+    await expect(notice).toBeVisible();
+    await page.getByRole('button', { name: 'Try another photo' }).click();
+    await expect(notice).toHaveCount(0);
+  });
+
+  test('the input check notice works with the keyboard @cross-browser', async ({
+    page,
+    isMobile,
+    browserName,
+  }) => {
+    test.skip(isMobile, 'no keyboard on the phone profile');
+    test.skip(browserName === 'webkit' && process.platform === 'win32', 'WebKit on Windows ignores Tab');
+    await page.goto('./');
+    await waitForModel(page);
+    await page.getByTestId('file-input').setInputFiles(OOD_FIXTURE);
+    await expect(page.getByRole('heading', { name: /single saffron thread on paper/ })).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name: 'Try another photo' })).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('link', { name: 'Photo tips' })).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name: 'Analyse anyway' })).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('unchecked-label')).toBeVisible();
+    await expect(page.locator('#result-heading')).toBeFocused();
+  });
+
+  test('repeated input checks do not leak tensors', async ({ page }) => {
+    await page.goto('./');
+    await waitForModel(page);
+    await page.getByTestId('sample').first().click();
+    await expect(page.getByTestId('result')).toBeVisible();
+    const baseline = await tensorCount(page);
+    for (let i = 0; i < 3; i++) {
+      await page.getByRole('button', { name: /Classify another/ }).click();
+      await page.getByTestId('file-input').setInputFiles(OOD_FIXTURE);
+      await expect(page.getByTestId('input-check-notice')).toBeVisible();
+      await page.getByTestId('analyse-anyway').click();
+      await expect(page.getByTestId('unchecked-label')).toBeVisible();
+    }
+    expect(await tensorCount(page)).toBe(baseline);
   });
 
   test('caches the model in IndexedDB for the next visit', async ({ page }) => {

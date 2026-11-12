@@ -1,0 +1,217 @@
+{
+  "summary": {
+    "description": "Input check image encoder as a TF.js graph model in Node (WASM backend), fed by sharp decode and the TypeScript area resizes, vs the original PyTorch model on the Python 224 x 224 image. Engineering check, not a model evaluation.",
+    "variant": "float16",
+    "model": "tinyclip-vit-8m-16-yfcc15m",
+    "version": "saffron-tinyclip-8m16-proto-1",
+    "backend": "wasm",
+    "images": 18,
+    "imageIdenticalToPython": 4,
+    "minCosineIdenticalImages": 0.9999995528903981,
+    "minCosineAll": 0.9955480249713637,
+    "maxScoreDiff": 0.006816133467085539,
+    "sameDecision": 18,
+    "requiredMinCosine": 0.999,
+    "leakedTensors": 0
+  },
+  "perImage": [
+    {
+      "id": "sample-01.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9965071888085923,
+      "pythonScore": 0.973924450818486,
+      "tfjsScore": 0.9726879245358424,
+      "scoreDiff": 0.0012365262826435908,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-02.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9972620635448041,
+      "pythonScore": 0.9704054279150827,
+      "tfjsScore": 0.9658170732627818,
+      "scoreDiff": 0.004588354652300897,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-03.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9989792540497969,
+      "pythonScore": 0.9562800028472076,
+      "tfjsScore": 0.9529870074321575,
+      "scoreDiff": 0.003292995415050126,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-04.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9955480249713637,
+      "pythonScore": 0.9779594290724382,
+      "tfjsScore": 0.9711432956053526,
+      "scoreDiff": 0.006816133467085539,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-05.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9988199928954234,
+      "pythonScore": 0.9549158992652355,
+      "tfjsScore": 0.952105655750934,
+      "scoreDiff": 0.0028102435143014803,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-06.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9975787206610868,
+      "pythonScore": 0.9586963345535007,
+      "tfjsScore": 0.9546898167985536,
+      "scoreDiff": 0.004006517754947092,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-07.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9978870268862285,
+      "pythonScore": 0.9869299441544757,
+      "tfjsScore": 0.9825424678141875,
+      "scoreDiff": 0.004387476340288132,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-08.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9988574126651997,
+      "pythonScore": 0.9731526265851598,
+      "tfjsScore": 0.9685882503556718,
+      "scoreDiff": 0.004564376229488021,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-09.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9981575507028467,
+      "pythonScore": 0.9466917959522408,
+      "tfjsScore": 0.948468025517856,
+      "scoreDiff": 0.0017762295656151839,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "sample-10.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9982415528601535,
+      "pythonScore": 0.9643890915133304,
+      "tfjsScore": 0.9657260363561974,
+      "scoreDiff": 0.0013369448428669495,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "exif-rotated.jpg",
+      "kind": "saffron",
+      "imageIdenticalToPython": false,
+      "cosine": 0.99664004786458,
+      "pythonScore": 0.9739763846483691,
+      "tfjsScore": 0.9733955048359022,
+      "scoreDiff": 0.0005808798124669057,
+      "pythonPassed": true,
+      "tfjsPassed": true
+    },
+    {
+      "id": "ood_red_thread_yarn.jpg",
+      "kind": "ood",
+      "imageIdenticalToPython": false,
+      "cosine": 0.999999745825864,
+      "pythonScore": 0.7002686141661576,
+      "tfjsScore": 0.7002814768509349,
+      "scoreDiff": 0.000012862684777292799,
+      "pythonPassed": false,
+      "tfjsPassed": false
+    },
+    {
+      "id": "ood_red_thread_kate_2112.jpg",
+      "kind": "ood",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9999997562476395,
+      "pythonScore": 0.7260847125555443,
+      "tfjsScore": 0.7260615656807727,
+      "scoreDiff": 0.00002314687477156241,
+      "pythonPassed": false,
+      "tfjsPassed": false
+    },
+    {
+      "id": "ood_thread_amagill.jpg",
+      "kind": "ood",
+      "imageIdenticalToPython": true,
+      "cosine": 0.9999998180253803,
+      "pythonScore": 0.7740547716618453,
+      "tfjsScore": 0.7740580200485998,
+      "scoreDiff": 0.0000032483867544730316,
+      "pythonPassed": false,
+      "tfjsPassed": false
+    },
+    {
+      "id": "ood_spool_of_dark_red_sewing_thread_1.jpg",
+      "kind": "ood",
+      "imageIdenticalToPython": true,
+      "cosine": 0.9999995528903981,
+      "pythonScore": 0.5749409243802696,
+      "tfjsScore": 0.5749763490897353,
+      "scoreDiff": 0.00003542470946571452,
+      "pythonPassed": false,
+      "tfjsPassed": false
+    },
+    {
+      "id": "ood_red_wool_texture.jpg",
+      "kind": "ood",
+      "imageIdenticalToPython": true,
+      "cosine": 0.9999998755589186,
+      "pythonScore": 0.7084593179533857,
+      "tfjsScore": 0.7084149723344563,
+      "scoreDiff": 0.000044345618929408914,
+      "pythonPassed": false,
+      "tfjsPassed": false
+    },
+    {
+      "id": "ood_handspun_yarn_16211767010.jpg",
+      "kind": "ood",
+      "imageIdenticalToPython": false,
+      "cosine": 0.9999996096490047,
+      "pythonScore": 0.6169124007938261,
+      "tfjsScore": 0.6169665012649532,
+      "scoreDiff": 0.00005410047112708316,
+      "pythonPassed": false,
+      "tfjsPassed": false
+    },
+    {
+      "id": "ood_backstitch_hand_embroidery.jpg",
+      "kind": "ood",
+      "imageIdenticalToPython": true,
+      "cosine": 0.99999987128822,
+      "pythonScore": 0.7701660476916521,
+      "tfjsScore": 0.77014420405276,
+      "scoreDiff": 0.00002184363889212726,
+      "pythonPassed": false,
+      "tfjsPassed": false
+    }
+  ]
+}
