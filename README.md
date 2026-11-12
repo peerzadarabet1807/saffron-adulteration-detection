@@ -17,7 +17,7 @@ Grad-CAM explanations. It runs entirely in your browser with TensorFlow.js; the 
   </a>
   <br>
   <b><a href="https://peerzadarabet1807.github.io/saffron-adulteration-detection/">Try the live demo →</a></b>
-  &nbsp;(47 MB model, downloaded once and cached; no server, no upload)
+  &nbsp;(47 MB classifier and 17 MB input check, downloaded once and cached; no server, no upload)
 </p>
 
 > **Research prototype.** Not a certified food-safety or laboratory test. Read the
@@ -46,11 +46,14 @@ strictly like-for-like. Macro-F1 on the test set is 0.973 and macro ROC-AUC 0.99
 saffron (C5), the thesis model's old weak spot. Grad-CAM, however, shows the model often uses the **paper
 background** to recognise the pure classes, because those classes were photographed on different paper. The
 perfect C1/C2 scores are therefore partly a data-collection artefact (see [Explainability](#explainability)).
+An [input check](#input-check) now runs first and holds back the verdict for photos that do not look like a
+single thread on paper. In testing it turned away 2 of 75 saffron-thread photos (2.7%, both pure classes) and
+none of 131 photos of other things.
 
 ## Contents
 
 [The problem](#the-problem) · [Dataset](#dataset) · [Method](#method) · [Results](#results) ·
-[Explainability](#explainability) · [Limitations](#limitations-and-threats-to-validity) ·
+[Explainability](#explainability) · [Input check](#input-check) · [Limitations](#limitations-and-threats-to-validity) ·
 [Web app](#the-web-app) · [Reproduce training](#reproduce-the-training) · [Run locally](#run-the-web-app-locally) ·
 [Repository](#repository-structure) · [Model card](#model-card) · [Roadmap](#roadmap) · [Citation](#citation)
 
@@ -282,6 +285,74 @@ which is classic CAM up to a constant that disappears after normalisation.
 logits weights, so one forward pass returns both the probabilities and 10 × 10 class maps. Checked on 30 real
 images, the maps correlate with gradient-based Grad-CAM at **r = 1.000000**.
 
+## Input check
+
+The classifier always answers with one of its five classes, whatever the photo shows. A second, small model now
+runs first and asks one question: does this photo look like the training photos, one thread on light paper? It
+never changes the classifier's answer, and it says nothing about pure or counterfeit: counterfeit threads (C3 to
+C5) must pass as readily as pure ones, because they are exactly what the classifier exists to catch.
+
+**How it works.** The image encoder of [TinyCLIP ViT-8M/16](https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M)
+(Microsoft, MIT licence) embeds the classifier's 300 × 300 input, area-resized to 224 × 224. The score is the
+cosine similarity with the nearest of five class prototypes, the mean embeddings of the 349 training photos. A
+photo passes when the score is at least **0.9419**: the highest threshold with at most 1% false rejection on the
+75 validation photos, which with 75 photos means the lowest validation score. The gate family and the browser
+weights are the ones chosen in the poultry repository's candidate study (six models and two baselines compared);
+the prototypes and threshold here are saffron's own ([`models/input_check.json`](models/input_check.json),
+written by [`build_input_check.py`](scripts/build_input_check.py)). In the app the encoder runs in the same Web
+Worker with TF.js (16.9 MB of float16 weights in four shards, [`web/public/gate/`](web/public/gate)), downloaded
+in parallel with the classifier.
+
+**When a photo fails**, the app shows no verdict, probability bars or heatmap. Instead it says "This doesn't
+look like a single saffron thread on paper.", why, and how to take a better photo, with **Try another photo**,
+**Photo tips** and **Analyse anyway**. "Analyse anyway" shows the result with a persistent label: "Unchecked
+input: this photo did not look like a single saffron thread on paper, so treat the result with extra caution."
+
+**Measured** on the test split and ood-test only (the threshold came from the validation split), with 95%
+Wilson intervals ([`evaluation.md`](results/input_check/evaluation.md)):
+
+| | Rate |
+|---|---|
+| Saffron-thread test photos turned away | **2.7%** (2 of 75; 0.7 to 9.2) |
+| per class: C1, C2 | 6.7% each (1 of 15; 1.2 to 29.8) |
+| per class: C3, C4, C5 (counterfeits) | 0.0% each (0 of 15; 0.0 to 20.4) |
+| Look-alike photos let through (red thread, fabric, chili threads, hair, flowers, jars, food, red objects) | **0.0%** (0 of 60; 0.0 to 6.0) |
+| Unrelated photos let through | **0.0%** (0 of 47; 0.0 to 7.6) |
+| Grey zone let through (safflower, corn silk, loose saffron not on paper) | **0.0%** (0 of 24; 0.0 to 13.8) |
+
+All 10 sample photos pass (lowest: 0.9466, sample 9). The highest-scoring OOD photo, a red pencil on paper,
+scored 0.8436. Post-hoc: on the 107 near and far ood-test photos, the classifier alone would give a confident
+answer (no low-confidence warning) for 9.3%; with the check in front, for none. The check does not catch the
+classifier's own mistakes: neither of the 2 test errors was turned away.
+
+<p align="center"><img src="results/input_check/figures/input_check_roc.png" alt="False rejection of test saffron photos against false acceptance of ood-test photos, with the shipped threshold marked" width="560"></p>
+
+**The out-of-distribution set.** 222 openly licensed photos from Wikimedia Commons (CC0, public domain, CC BY,
+CC BY-SA): 100 near, 40 grey zone and 82 far, including the 7 original OOD photos. It was split once, before any
+tuning, into ood-tune (91) and ood-test (131), stratified by category with a fixed seed. Per-category results
+and credits are in [`docs/ood/`](docs/ood/README.md).
+
+**What it cannot do.**
+- **Small numbers.** 15 test photos per class: the intervals above are wide, and "0 of 60" does not mean the
+  check never lets a look-alike through.
+- **It compares with the training photos**, taken with one phone on a few papers. The two rejected test photos
+  are pure classes, which were photographed on distinctive paper (the background confound in
+  [Explainability](#explainability)). Threads photographed on other paper, with other phones or in other light
+  may be turned away more often; no such photos were available to measure this.
+- **The grey zone** was turned away in this set (safflower and corn silk as flowers, silks or heaps; saffron as
+  piles). A single safflower petal or corn silk strand laid on paper like the training photos is untested.
+- **Latency.** The encoder and input size are the same as in the poultry app, measured there
+  ([`browser_bench.json`](https://github.com/peerzadarabet1807/poultry-disease-detection/blob/main/results/input_check/browser_bench.json)):
+  68.0 ms per photo on an integrated Intel GPU (WebGL), 212.5 ms on WebAssembly on the same laptop, 918.8 ms on an
+  emulated mid-range phone.
+
+**Parity** ([`results/input_check/parity_float16.json`](results/input_check/parity_float16.json)): on 18
+committed fixtures (10 samples, the EXIF fixture, the 7 original OOD photos), TF.js matches the original PyTorch
+model with the same pass/fail decision on all 18, and at cosine ≥ 0.9999995 where the 224 × 224 input is
+identical. Node's `sharp` decodes the progressive sample JPEGs slightly differently from Pillow, and the area
+filter port differs from OpenCV by 1 on a few values, so 14 of the 18 inputs differ slightly; their cosine is at
+least 0.9955. In Chromium every sample passes, with scores close to Python's (the e2e test logs them).
+
 ## Limitations and threats to validity
 
 1. **Background confound (above).** The pure classes are partly recognised by their photo background.
@@ -295,7 +366,8 @@ images, the maps correlate with gradient-based Grad-CAM at **r = 1.000000**.
 5. **A closed set of five answers.** There is no "not saffron" or "mixed sample" class, so the model **always**
    outputs one of the five classes. On seven openly licensed photos of red thread, yarn and fabric, the web
    app's low-confidence warning fired for 5; the other 2, both red thread on a light background, were
-   classified confidently as C3 (75% and 83%). See [`docs/ood/`](docs/ood/README.md).
+   classified confidently as C3 (75% and 83%). See [`docs/ood/`](docs/ood/README.md). The
+   [input check](#input-check) now turns all seven away, but it is a safeguard, not a guarantee.
 6. **Uncalibrated probabilities.** One test error was 78.6% confident. Temperature scaling on a separate
    calibration split is future work.
 7. **Baseline comparison.** The thesis figures come from a different split and protocol.
@@ -307,13 +379,15 @@ images, the maps correlate with gradient-based Grad-CAM at **r = 1.000000**.
 | | |
 |---|---|
 | ![Landing page with the upload zone, photo guidelines and a ready model](docs/screenshots/01-landing.png) | ![Model download progress bar at 42%](docs/screenshots/02-model-loading.png) |
-| **Landing:** drop, pick, paste or photograph a thread | **First visit:** 47 MB model with progress, then cached |
+| **Landing:** drop, pick, paste or photograph a thread | **First visit:** both models (64 MB) with progress, then cached |
 | ![A dryer-dried pure saffron sample classified as Likely pure, 93.3% C1](docs/screenshots/03-result-pure.png) | ![A dyed stem sample classified as Likely counterfeit, 92.5% C4, with Grad-CAM on the thread](docs/screenshots/04-result-counterfeit-gradcam.png) |
 | **Pure:** C1 at 93.3%; Grad-CAM partly on the paper | **Counterfeit:** C4 at 92.5%; Grad-CAM on the thread |
-| ![A photo of a red thread spool classified with only 25.8% top probability and a low-confidence warning](docs/screenshots/05-low-confidence.png) | ![About section with test metrics, per-class table and confusion matrix](docs/screenshots/06-about-model.png) |
-| **Not saffron:** a real photo of a thread spool triggers the low-confidence warning | **About the model:** every number is read from `metrics.json` |
+| ![A photo of a red thread spool turned away by the input check, with Try another photo, Photo tips and Analyse anyway](docs/screenshots/05-low-confidence.png) | ![About section with test metrics, per-class table and confusion matrix](docs/screenshots/06-about-model.png) |
+| **Not saffron:** the input check turns a photo of a thread spool away | **About the model:** every number is read from `metrics.json` |
 | <img src="docs/screenshots/07-mobile.png" alt="Mobile layout with the verdict first" width="300"> | ![Dark theme showing a pressed saffron sample](docs/screenshots/08-dark-mode.png) |
 | **Mobile:** verdict first, camera capture button | **Dark mode** |
+| ![The same thread spool after Analyse anyway: a result labelled Unchecked input](docs/screenshots/09-unchecked.png) | ![The input check notice in the dark theme](docs/screenshots/10-input-check-dark.png) |
+| **Analyse anyway:** the classifier still answers, now labelled "Unchecked input" | **Input check notice, dark theme** |
 
 All screenshots were captured from the production build with
 [`web/scripts/capture-screenshots.ts`](web/scripts/capture-screenshots.ts). The inference times shown were
@@ -325,6 +399,9 @@ measured on an integrated Intel UHD GPU.
   Non-images and files over 25 MB are rejected by file signature, with a clear message.
 - **Try a sample:** ten held-out test images (per class, the median and the hardest), with labels revealed
   after classification, including one real mistake.
+- **Input check first.** A photo that does not look like one thread on paper gets a notice instead of a verdict,
+  with **Try another photo**, **Photo tips** and **Analyse anyway** (the result is then labelled "Unchecked
+  input"). See [Input check](#input-check) for how it works and its measured error rates.
 - **Verdict** ("Likely pure" / "Likely counterfeit") from group probabilities (C1 + C2 vs C3 + C4 + C5), the top
   class with its description, and **probability bars** for all five classes.
 - A **low-confidence warning** when the top probability is below 0.60 or the top-2 margin below 0.20. For
@@ -345,16 +422,19 @@ flowchart LR
     R["Result: verdict, bars,<br/>CAM overlay, card"]
   end
   subgraph W["Web Worker (Comlink)"]
-    P["INTER_AREA port<br/>→ 300×300×3, raw 0–255"] --> M["TF.js graph model<br/>WebGL → WASM → CPU"]
+    P["INTER_AREA port<br/>→ 300×300×3, raw 0–255"] --> G["input check: area resize → 224×224<br/>TinyCLIP encoder, cosine to 5 prototypes"]
+    G -- "passes, or Analyse anyway" --> M["TF.js graph model<br/>WebGL → WASM → CPU"]
     M --> O["probabilities [5]<br/>cam [10×10×5]"]
+    G -- "fails" --> N["notice, no verdict"]
   end
   D -- "ImageBitmap (transfer)" --> P
   O -- "typed arrays (transfer)" --> R
-  C[("IndexedDB<br/>model cache")] <--> M
+  C[("IndexedDB<br/>model caches")] <--> M
+  C <--> G
 ```
 
 - **Everything runs off the UI thread** in a Web Worker: backend selection (WebGL, then WASM, then CPU), the
-  model download with progress, the IndexedDB cache (keyed by the model's content hash), warm-up with
+  download of both models in parallel with progress, the IndexedDB caches (keyed by each model's content hash), warm-up with
   **parallel shader compilation**, preprocessing and inference. Where workers have no WebGL (Safari 16), the
   same code runs on the page thread with WebGL. The model starts downloading once the page has loaded.
 - **One forward pass** returns probabilities and CAMs; the heatmap is ReLU'd, min-max normalised, upsampled
@@ -378,22 +458,29 @@ flowchart LR
 | **float16** | 47.2 MB | 100% | **0.0021** | 0.99998 | ✅ |
 | uint8 | 23.7 MB | 100% | 0.122 | 0.966 | ❌ fails the 0.02 / 0.98 bar |
 
+The input check's encoder has its own parity test against PyTorch (see [Input check](#input-check)).
+
 End to end in the browser (decoding, the area filter and WebGL), Playwright checks every sample against its
 Keras reference: the largest probability difference is **0.0006** in Chromium. The e2e suite passes in
 Chromium, Firefox, WebKit and an emulated Pixel 7, including HEIC and EXIF-rotated uploads.
 
-**Lighthouse** (13.5, median of 3 runs, [`docs/lighthouse/summary.json`](docs/lighthouse/summary.json))
+**Lighthouse** (13.5.0, median of 3 runs, headless Chromium on the same machine and day; after:
+[`docs/lighthouse/summary.json`](docs/lighthouse/summary.json), before the input check (`main` at `66365de`):
+[`before_input_check.json`](docs/lighthouse/before_input_check.json); script:
+[`web/scripts/lighthouse.mjs`](web/scripts/lighthouse.mjs))
 
-| | Performance | Accessibility | Best practices | SEO |
+| | Performance before → after | Accessibility | Best practices | SEO |
 |---|---|---|---|---|
-| Mobile, excluding the model download | **94** | 100 | 100 | 100 |
-| Desktop, excluding the model download | **100** | 100 | 100 | 100 |
-| Mobile, with the 47 MB background download | 77 | 100 | 100 | 100 |
-| Desktop, with the 47 MB background download | 80 | 100 | 100 | 100 |
+| Mobile, excluding the model download | 93 → **93** | 100 → 100 | 100 → 100 | 100 → 100 |
+| Desktop, excluding the model download | 100 → **100** | 100 → 100 | 100 → 100 | 100 → 100 |
+| Mobile, models downloading in the background | 93 → **93** | 100 → 100 | 100 → 100 | 100 → 100 |
+| Desktop, models downloading in the background | 100 → **100** | 100 → 100 | 100 → 100 | 100 → 100 |
 
 "Excluding the model download" loads the page with `?preload=0`, because Lighthouse cannot block a worker's
-requests. With the download running, network activity pushes Lighthouse's time-to-interactive window out, so
-it counts its own injected scripts as blocking time.
+requests. In these runs the "downloading" rows score like the others, which suggests the download (47 MB
+classifier and 17 MB input check, started once the page has loaded) began after Lighthouse stopped measuring;
+an earlier run (2026-09-24) scored 77 on mobile and 80 on desktop with the download. Treat those two rows as an
+upper bound.
 
 ## Reproduce the training
 
@@ -416,7 +503,7 @@ To download the trained weights instead, see [`models/README.md`](models/README.
 cd web
 npm ci
 npm run dev            # http://localhost:5173/saffron-adulteration-detection/
-npm test               # unit tests (Vitest, 62 tests)
+npm test               # unit tests (Vitest, 76 tests)
 npm run lint && npm run typecheck
 npm run build && npm run preview
 npx playwright install chromium firefox webkit
@@ -438,20 +525,40 @@ bash scripts/convert_to_tfjs.sh --install float16
 The parity test runs TF.js on its WASM backend in Node, because `@tensorflow/tfjs-node` has no working
 Windows build for Node 22. It needs the local `build/reference` artefacts, so it runs locally rather than in CI.
 
+**Rebuild the input check** (needs the raw photos; a second venv with
+[`scripts/requirements-gate.txt`](scripts/requirements-gate.txt) for PyTorch):
+
+```bash
+python scripts/reproduce_test_split.py --data data      # [needs dataset] build/test_split.json
+python scripts/gate_extract.py                          # [needs dataset] 224 x 224 inputs + classifier outputs
+python scripts/build_input_check.py                     # gate venv: prototypes, threshold, evaluation
+python scripts/make_gate_references.py seen             # parity fixtures (committed photos only)
+python scripts/make_gate_references.py embed            # gate venv
+PARITY_VARIANT=float16 npm --prefix web run test:parity
+```
+
+The OOD set itself: `python scripts/build_ood_set.py --discover` (candidates and contact sheets),
+`python scripts/build_ood_set.py` (downloads the committed `docs/ood/selection.json`),
+`python scripts/split_ood.py` (once) and `python scripts/write_ood_credits.py`.
+
 ## Repository structure
 
 ```
 ├── notebooks/        executed Colab training notebook (outputs kept)
-├── results/          metrics.json, CSV reports and every figure from the training run
-├── models/           class names, model card, parity report; weights are in the GitHub Release
+├── results/          metrics.json, CSV reports and every figure from the training run;
+│                     input_check/ (evaluation, figure, parity)
+├── models/           class names, model card, parity report, input check rule (input_check.json);
+│                     weights are in the GitHub Release
 ├── scripts/          Python: web-model build, TF.js conversion, split reproduction, references,
-│                     samples, figures, non-saffron evaluation
+│                     samples, figures, non-saffron evaluation, OOD set, input check
 ├── web/              Vite + React + TypeScript app
 │   ├── public/model/     sharded TF.js graph model (float16, 12 × ≤ 4 MiB)
+│   ├── public/gate/      input check image encoder, TinyCLIP ViT-8M/16 (float16, 4 shards, MIT notice)
 │   ├── public/samples/   10 held-out test images (600 px) + manifest
 │   ├── src/              UI, worker, preprocessing, CAM
 │   └── tests/            unit, parity and Playwright e2e tests + fixtures
-├── docs/             screenshots, non-saffron photos (with credits), Lighthouse summary
+├── docs/             screenshots, ood/ (222 non-saffron photos, credits, tune/test split), Lighthouse
+│                     summaries
 └── .github/workflows CI (lint, types, tests, build) and GitHub Pages deploy
 ```
 
@@ -465,7 +572,9 @@ photos taken like the training data. It must not be used to certify saffron or t
 
 - [ ] Re-shoot all classes on **one standardised background** with fixed lighting (fixes the confound)
 - [ ] **External test set** from other days, papers, phones and origins
-- [ ] A **"not saffron" / out-of-distribution** class or detector
+- [x] An **input check** in front of the classifier ("not a single thread on paper"), November 2026
+- [ ] Input check photos from **other papers, phones and lighting**, to measure false rejection outside the
+      training setting
 - [ ] **Mixed-sample** detection (adulterant threads among genuine ones)
 - [ ] **Spectral or chemical fusion** (e.g. UV-Vis crocin / picrocrocin / safranal markers, as in ISO 3632)
 - [ ] **Calibration** (temperature scaling on a held-out calibration split)
@@ -494,12 +603,14 @@ image-based saffron grading and fraud detection.
 
 This project began as my bachelor's thesis under the supervision of **Dr. Mamoni Banerjee**, Rajendra Mishra
 School of Engineering Entrepreneurship (RMSOEE), IIT Kharagpur. Thank you for the guidance. The non-saffron
-test photos are by Wikimedia Commons contributors, credited in [`docs/ood/`](docs/ood/README.md). Fonts are
-Fraunces and Inter (SIL OFL 1.1).
+test photos are by Wikimedia Commons contributors, credited in [`docs/ood/CREDITS.md`](docs/ood/CREDITS.md).
+The input check uses the image encoder of TinyCLIP (Wu et al., ICCV 2023; Microsoft, MIT licence, notice in
+[`web/public/gate/LICENSE.txt`](web/public/gate/LICENSE.txt)). Fonts are Fraunces and Inter (SIL OFL 1.1).
 
 ## License and contact
 
-Code and model weights: [MIT](LICENSE). The training photos are not included. The non-saffron photos in
+Code and model weights: [MIT](LICENSE). The input check's TinyCLIP weights: MIT, Copyright (c) Microsoft
+Corporation. The training photos are not included. The non-saffron photos in
 `docs/ood/` keep their own Creative Commons licenses.
 
 **Peerzada Mohammad Rabet**, B.Tech Agricultural and Food Engineering, IIT Kharagpur (2024) ·

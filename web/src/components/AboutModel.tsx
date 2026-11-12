@@ -3,6 +3,7 @@ import { COLAB_URL, MODEL_CARD_URL, NOTEBOOK_URL, REPO_URL } from '../lib/links'
 import { correctCount, metrics, parity, testErrors } from '../lib/metrics';
 import { ConfusionMatrix } from './ConfusionMatrix';
 import { ExternalIcon } from './icons';
+import { InputCheckAbout } from './InputCheckAbout';
 import { Limitations } from './Limitations';
 
 const pct = (v: number, d = 1) => `${(v * 100).toFixed(d)}%`;
@@ -216,6 +217,8 @@ export function AboutModel() {
           </ul>
         </div>
       </div>
+
+      <InputCheckAbout />
 
       <Limitations />
     </section>

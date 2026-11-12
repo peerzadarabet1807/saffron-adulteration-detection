@@ -1,6 +1,7 @@
 dist
 node_modules
 public/model
+public/gate
 public/samples
 coverage
 playwright-report

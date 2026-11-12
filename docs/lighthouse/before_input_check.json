@@ -1,0 +1,186 @@
+{
+ "build": "main at 66365de, before the input check (same machine and day as summary.json)",
+ "lighthouse": "13.5.0",
+ "date": "2026-11-12",
+ "browser": "Chromium (Playwright build), headless",
+ "server": "vite preview of the production build",
+ "note": "Median of 3 runs. excludingModel = page loaded with ?preload=0 (the 47 MB model is not fetched until the first classification; Lighthouse cannot block a Web Worker's requests). withModel = default behaviour, the model downloads in the background after page load. Measured on main before the input check, with web/scripts/lighthouse.mjs.",
+ "results": {
+  "excludingModel_mobile": {
+   "median": {
+    "performance": 93,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp_s": 1.81,
+    "lcp_s": 3.01,
+    "tbt_ms": 0,
+    "cls": 0
+   },
+   "runs": [
+    {
+     "performance": 93,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 1.81,
+     "lcp_s": 3.01,
+     "tbt_ms": 0,
+     "cls": 0
+    },
+    {
+     "performance": 93,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 1.81,
+     "lcp_s": 3.01,
+     "tbt_ms": 0,
+     "cls": 0
+    },
+    {
+     "performance": 93,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 1.8,
+     "lcp_s": 3.01,
+     "tbt_ms": 0,
+     "cls": 0
+    }
+   ]
+  },
+  "excludingModel_desktop": {
+   "median": {
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp_s": 0.4,
+    "lcp_s": 0.65,
+    "tbt_ms": 0,
+    "cls": 0
+   },
+   "runs": [
+    {
+     "performance": 100,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 0.4,
+     "lcp_s": 0.65,
+     "tbt_ms": 0,
+     "cls": 0
+    },
+    {
+     "performance": 100,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 0.37,
+     "lcp_s": 0.65,
+     "tbt_ms": 0,
+     "cls": 0
+    },
+    {
+     "performance": 100,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 0.4,
+     "lcp_s": 0.65,
+     "tbt_ms": 0,
+     "cls": 0
+    }
+   ]
+  },
+  "withModel_mobile": {
+   "median": {
+    "performance": 93,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp_s": 1.8,
+    "lcp_s": 3.01,
+    "tbt_ms": 0,
+    "cls": 0
+   },
+   "runs": [
+    {
+     "performance": 93,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 1.8,
+     "lcp_s": 3.01,
+     "tbt_ms": 0,
+     "cls": 0
+    },
+    {
+     "performance": 93,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 1.8,
+     "lcp_s": 3.01,
+     "tbt_ms": 0,
+     "cls": 0
+    },
+    {
+     "performance": 93,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 1.8,
+     "lcp_s": 3.01,
+     "tbt_ms": 3,
+     "cls": 0
+    }
+   ]
+  },
+  "withModel_desktop": {
+   "median": {
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp_s": 0.4,
+    "lcp_s": 0.65,
+    "tbt_ms": 0,
+    "cls": 0
+   },
+   "runs": [
+    {
+     "performance": 99,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 0.4,
+     "lcp_s": 0.65,
+     "tbt_ms": 75,
+     "cls": 0
+    },
+    {
+     "performance": 100,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 0.36,
+     "lcp_s": 0.65,
+     "tbt_ms": 0,
+     "cls": 0
+    },
+    {
+     "performance": 100,
+     "accessibility": 100,
+     "bestPractices": 100,
+     "seo": 100,
+     "fcp_s": 0.4,
+     "lcp_s": 0.65,
+     "tbt_ms": 0,
+     "cls": 0
+    }
+   ]
+  }
+ }
+}

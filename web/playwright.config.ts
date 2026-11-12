@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const BASE = 'http://localhost:4173/saffron-adulteration-detection/';
+// PREVIEW_PORT: only for machines where another app already holds 4173
+const PORT = Number(process.env.PREVIEW_PORT ?? 4173);
+const BASE = `http://localhost:${PORT}/saffron-adulteration-detection/`;
 
 /**
  * E2E tests run against the production build (`npm run build` first). Firefox and WebKit run the core
@@ -26,7 +28,7 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['Pixel 7'] }, grep: /@cross-browser/ },
   ],
   webServer: {
-    command: 'npm run preview',
+    command: PORT === 4173 ? 'npm run preview' : `npx vite preview --port ${PORT} --strictPort`,
     url: BASE,
     reuseExistingServer: true,
     timeout: 60_000,

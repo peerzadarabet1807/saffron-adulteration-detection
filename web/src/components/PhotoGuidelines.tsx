@@ -19,7 +19,8 @@ const TIPS = [
 export function PhotoGuidelines({ open, onToggle }: Props) {
   return (
     <details
-      className="group card overflow-hidden"
+      id="photo-guidelines"
+      className="group card scroll-mt-24 overflow-hidden"
       open={open}
       onToggle={(e) => onToggle((e.currentTarget as HTMLDetailsElement).open)}
     >

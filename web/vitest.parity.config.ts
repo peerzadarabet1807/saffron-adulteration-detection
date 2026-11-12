@@ -4,7 +4,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     environment: 'node',
-    include: ['tests/parity.node.test.ts'],
+    include: ['tests/parity.node.test.ts', 'tests/parity.gate.node.test.ts'],
     testTimeout: 600_000,
     hookTimeout: 120_000,
     pool: 'forks',
