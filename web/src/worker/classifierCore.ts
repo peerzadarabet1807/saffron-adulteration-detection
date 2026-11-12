@@ -185,12 +185,17 @@ export function createClassifierApi(runsIn: RunsIn): ClassifierApi {
 
       // both downloads at once; progress is the byte-weighted share of the two
       const fractions = { model: 0, gate: 0 };
-      const report = () =>
+      // If one download fails, the other may still be running: stop reporting its progress, or it would
+      // overwrite the error state in the page, and swallow its later rejection.
+      let failed = false;
+      const report = () => {
+        if (failed) return;
         onProgress({
           phase: 'download',
           fraction: (fractions.model * __MODEL_BYTES__ + fractions.gate * __GATE_BYTES__) / TOTAL_BYTES,
         });
-      const [main, check] = await Promise.all([
+      };
+      const loads = [
         loadModel(urls.model, MODEL_CACHE, (f) => {
           fractions.model = f;
           report();
@@ -199,7 +204,16 @@ export function createClassifierApi(runsIn: RunsIn): ClassifierApi {
           fractions.gate = f;
           report();
         }),
-      ]);
+      ] as const;
+      loads.forEach((l) => l.catch(() => undefined));
+      let main: Awaited<(typeof loads)[0]>;
+      let check: Awaited<(typeof loads)[1]>;
+      try {
+        [main, check] = await Promise.all(loads);
+      } catch (e) {
+        failed = true;
+        throw e;
+      }
       model = main.model;
       gate = check.model;
       const loadMs = performance.now() - t0;
