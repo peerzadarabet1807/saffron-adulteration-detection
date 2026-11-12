@@ -8,6 +8,7 @@ saved_model/
 
 # --- Build / intermediate artefacts ---
 /build/
+/.work/
 dist/
 *.npy
 *.npz

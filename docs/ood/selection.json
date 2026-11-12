@@ -1,0 +1,1528 @@
+{
+ "description": "Photos chosen for the out-of-distribution set from the candidates of scripts/build_ood_set.py --discover, after looking at every candidate on its contact sheet. Rule for near and grey categories: the subject fills a large part of the frame, at most one photo per near-duplicate series, no people as the main subject. Far categories: the same titles as the poultry repository's far categories. Every skipped candidate has a reason code.",
+ "reason_codes": {
+  "dup": "near-duplicate of a chosen photo or of another photo in the same series",
+  "subject": "the category's subject is small, partly hidden or not the main subject",
+  "other": "does not show this category",
+  "art": "drawing, print, painting, render, diagram, chart or composite",
+  "people": "people are the main subject",
+  "animal": "an animal is the main subject",
+  "enough": "a similar photo of this category was already chosen (keeps the categories balanced)",
+  "moved": "loose saffron threads: chosen for the grey-zone category saffron_loose instead"
+ },
+ "categories": {
+  "red_thread_yarn": {
+   "titles": [
+    "Needle and red thread.jpg",
+    "Worsted wool yarn.JPG",
+    "A spool of bright red polyester thread, a sewing needle, and a needle threader.jpg",
+    "Alpaca yarn.jpg",
+    "Start wrapping your yarn or floss around the cardboard, lengthwise. Make sure you are wrapping acrossover the string you taped (3c6c467b-92e5-4510-b315-887410b177f8).JPEG",
+    "Spool of dark red sewing thread 2.jpg",
+    "20260816 needles.jpg",
+    "Spool of dark red sewing thread 3.jpg",
+    "Pasargada, varios (2000) 03.jpg",
+    "Red thread bokeh (8568995113).jpg",
+    "Cut the wrapped yarn or floss along the bottom and take it off the cardboard. Your tassel is almost ready. Don't worry if a few (805c81c4-9058-43db-895e-14888619c261).JPEG",
+    "Cross stitch embroidery.jpg",
+    "Pygora redyarn.jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Orange texture made of a fishing net on a wooden board at golden hour.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red silk knitted waistcoat.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Veiled in Red.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Mortagne-sur-Gironde Civellier Mayflowers 2013.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Hand Embroidery of the Moon - Flickr - NASA Goddard Photo and Video.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red Apple.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Spool of red thread.jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Rusty rebar nets.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "American Red Cross - Warehouses - War Activities, Red Cross Work. Wool room from which yarn for socks and swaters and was distributed. At Hackensack, N.J - NARA - 20803204.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red Fox drinking from a lake in Gennevilliers, France.jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "20160805 - Inle Lake, Myanmar - 8453 DxO.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Cut a piece of yarn or floss 8 inches long (or double the length of your cardboard) and fold it in half. Tape it across the top (eb9ed38a-efd1-493b-a846-0debd6dfe307).JPEG",
+     "reason": "dup"
+    },
+    {
+     "title": "Red fox catches a vole - Tolyatti, Russia.jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "EB1911 - Net - Fig. 2a.png",
+     "reason": "art"
+    },
+    {
+     "title": "Tie the top piece of yarn or floss, the one that will be your hanger, into a slip knot by pulling the loose ends through the (dff40e51-79ea-431a-b553-6a95a72d443c).JPEG",
+     "reason": "dup"
+    },
+    {
+     "title": "Alaska Red Fox (Vulpes vulpes).jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "Child cast net in Laguna de Raya.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "カネボウ毛糸ベルライフ 2009 (3397615896).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Red Maple Leaves in Yahiko.JPG",
+     "reason": "other"
+    },
+    {
+     "title": "Red thread snippers.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Butterfly Enclosure Net Xcaret.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Wool yarns fingerwoven into garters and sashes were used by voyageurs and Indian peoples for support and decoration. (286d9e4c-fbfb-5547-bdf7-af80d2b329db).JPG",
+     "reason": "people"
+    },
+    {
+     "title": "Red Panda.JPG",
+     "reason": "animal"
+    },
+    {
+     "title": "Red Thread - panoramio.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Xarxa pàdel.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Table Cover (USA), 1884 (CH 18316231).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Red squirrel (21808).jpg",
+     "reason": "animal"
+    }
+   ]
+  },
+  "red_fabric": {
+   "titles": [
+    "Red wool texture-2.jpg",
+    "Velvet fabric.jpg",
+    "Red cloth (37488473804).jpg",
+    "Carvico-Matte-Nylon-Lycra-Fabric-Coccinella-Red-Italian-Stretch-Fabric-For-Swimwear-Solid-Stone-Fabrics-Inc..jpg",
+    "Texture of red tissue.jpg",
+    "Red Fabric Drying.jpg",
+    "Knit Texture Stacked Barrels.jpg",
+    "Table-cloth 2008-1.jpg",
+    "Reference - Quatrefoil Jacquard Fabric (Rico Cilliers and colormass via Poly Haven).jpg",
+    "Bowtie paisley red.jpg",
+    "Selbstbinder rot, Seide.jpg",
+    "Badstof RA.jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Balaclava with modern cut in red made of thin fabric with polar fleece on the inside.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Veiled in Red.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Red fabric cat lamp with mouse shadow.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red wool texture-2.png",
+     "reason": "dup"
+    },
+    {
+     "title": "Picture, fabric (AM 590560-2).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "The 5.6.7.8's 1994.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Picture, fabric (AM 590560-4).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Cloth for furniture with geometric red pattern and an Arabic inscription, linen - Museo Egizio Turin S 17474 p010.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Picture, fabric (AM 590560-5).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Quatrefoil jacquard fabric (Rico Cilliers and colormass via Poly Haven).png",
+     "reason": "art"
+    },
+    {
+     "title": "Texture paper.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "The Bawdies 6 @ Red Cloth, 2007-03-31.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Picture, fabric (AM 590560-3).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Quatrefoil jacquard fabric arm 8k (Rico Cilliers and colormass via Poly Haven).png",
+     "reason": "other"
+    },
+    {
+     "title": "The Bawdies 9 @ Red Cloth, 2007-03-31.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Edgar Leeteg - MARIE - Gouache on velvet portrait of a woman's face emerging from darkness peering upwards with long curly hair.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Quatrefoil jacquard fabric diff 8k (Rico Cilliers and colormass via Poly Haven).png",
+     "reason": "other"
+    },
+    {
+     "title": "Red wool texture.png",
+     "reason": "dup"
+    },
+    {
+     "title": "The Bawdies 8 @ Red Cloth, 2007-03-31.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Mobília dos séculos XIX e XX, Palacete Palmeira.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Shimmery beach streams texture - free to use - Flickr - Carolyn Saxby.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "The Bawdies 7 @ Red Cloth, 2007-03-31.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Quatrefoil jacquard fabric arm 8k (Rico Cilliers and colormass via Poly Haven).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "The Bawdies 3 @ Red Cloth, 2007-03-31.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Quatrefoil jacquard fabric metal 8k (Rico Cilliers and colormass via Poly Haven).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "The Bawdies 4 @ Red Cloth, 2007-03-31.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Quatrefoil jacquard fabric disp 8k (Rico Cilliers and colormass via Poly Haven).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "The Bawdies 5 @ Red Cloth, 2007-03-31.jpg",
+     "reason": "people"
+    }
+   ]
+  },
+  "chili_threads": {
+   "titles": [
+    "Chili threads.jpg",
+    "Red pepper flakes, closeup.jpg",
+    "Gyeran-mari 4.jpg",
+    "Red pepper flakes.jpg",
+    "Korean cuisine-Oiseon-02.jpg",
+    "Chilli flakes.jpg",
+    "Salad with heugimja dressing.jpg",
+    "Red pepper flakes for pickling.jpg",
+    "Dried Capsicum annuum-Red Chilli Pepper on Nanglo.jpg",
+    "Filippi's Pizza Grotto Napa - August 2022 - Sarah Stierch 02.jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Mu daet diao.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "DFC 0309 Close-up of skewers with bright red glazed meat chunks green bell pepper pieces and pineapple wedges threaded on wooden sticks.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Gyeran-jang-jorim.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Gyeran-mari 3.jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Hubble Spies an Active Spiral - Flickr - NASA Hubble.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Too many crushed red peppers flakes? (7360257396).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "OG Sunflower seed broth, king oyster mushroom, baby bok choy, bean sprouts, scallions, chili threads, nori (25737388003).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Mars Express spies a nameless and ancient impact crater ESA16073815.jpeg",
+     "reason": "other"
+    },
+    {
+     "title": "Threading peppers, Maamoura.JPG",
+     "reason": "people"
+    },
+    {
+     "title": "SOM-849CA3, Post-Medieval sileverware hoard (FindID 237552).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Amazigh tunisian woman prepering hot red pepper to make Harrisa.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Bahar (2599760344).jpg",
+     "reason": "people"
+    },
+    {
+     "title": "CC-CRP Boeing 737 PAL Airlines (8188701036).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Trinidad como parte de Venezuela en 1795 D'Anville (cropped).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "1795 D'Anville Wall Map of South America - Geographicus - SouthAmerica-laruiewhittle-1794.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Dreamfarm Ortwo Pepper Grinder Mechanism.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "DSCF0629 Glazed charred skewers of grilled meat lined up and sizzling on the grill - juicy barbecue satay ready to eat.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "CC-CRP Boeing 737 PAL Airlines Tail (8185456395).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "CRP Test-Positive (Qualitative Method).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "S3-CRP Bangladesh Police (Rapid Action Battalion) Bell 407GX.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "CRP INDUSTRIES 2N2222.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "S3-CRP Bangladesh Police (Rapid Action Battalion) Bell 407GX VGTJ.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "S3-CRP Bangladesh Police (R.A.B) Bell 407GX. (33955699736).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Piper PA-22-160 ZS-CRP (6925895823).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "S3-CRP Bangladesh Police (Rapid Action Battalion) Bell 407GX. (26379136479).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "S3-CRP Bangladesh Police (Rapid Action Battalion) Bell 407GX (31875337126).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "EI-CRP B737-73S Azzurra Air MAN 14FEB02 (6955985474).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "LAN Chile Boeing 737-230; CC-CRP@SCL, October 1998 BTX (5066218489).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "CRP-logo.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "CRP 2N2222A.jpg",
+     "reason": "other"
+    }
+   ]
+  },
+  "hair": {
+   "titles": [
+    "Hair strand magnified -2.png",
+    "Hair strand magnified -1.jpg",
+    "Auburn hair.jpg",
+    "Redhead close up.jpg",
+    "Hair Strand - PMG.jpg",
+    "Young woman with long red hair from behind.jpg",
+    "Hair strand magnified -3.png",
+    "Napoleon's strand of hair 01.jpg",
+    "Napoleon's strand of hair 02.jpg",
+    "Gwen John - Standing Female Nude, with hair loose, NMW A 3582v.jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Flaming June, by Frederic Lord Leighton (1830-1896).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Albrecht Dürer Portrait of a Young Fürleger with Loose Hair fragment.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Hemidactylus frenatus mating, ventral view.jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "Uyghur-redhead.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Red Hair theatrical poster.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Grigoriy Myasoyedov — Portrait of a Lady with Loose Hair (1890s).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Hoya carnosa - umbel with nectar droplets.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Durer, Portrait of a Young Fürleger with Loose Hair.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Cutwork embroidery depicting a flock of birds on pillowcase made of post-war coarse fabric.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Matthijs Maris (1839-1917) - Girl with Auburn Hair - 35.345 - Burrell Collection.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Mask of a man with loose hair combed forward and a mantle MET vs00.2.17.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Atropa belladonna back-lit corolla exterior interior contrast.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Alexei Harlamov - An auburn haired beauty.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Red Hair Against A Blue Sky.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Up Close Hair Strand Used in Forensics.png",
+     "reason": "art"
+    },
+    {
+     "title": "Leopold Horowitz - Portrait of a girl with loose hair - MP 2333 MNW - National Museum in Warsaw.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Mariposa Lily (Calochortus apiculatus) (50095301557).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Mt. Auburn Cemetery (00417p).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Scarlet macaw (Ara macao cyanopterus) Copan.jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "Munch - Woman with her Hair Hanging Loose, 1919, MM.M.00290.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Mariposa Lily (Calochortus apiculatus) (50095301287).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "George Chinnery - A Gentleman with Auburn Hair - B2016.32.8 - Yale Center for British Art.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Woman redhead natural portrait 1.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Strands Hair Design - Lydgate - geograph.org.uk - 1617288.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Two women and a girl who wear their long hair loose after ba Wellcome V0020061.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Melitta haemorrhoidalis, f, england, face 2014-11-02-01.23.34 ZS PMax (15596691678).jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "Caesar Kunwald - An auburn haired maiden.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Clara Bow in Red Hair, 1928.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Melitta haemorrhoidalis, f, england, side 2014-11-02-01.34.36 ZS PMax (15780246561).jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "Mary Cassatt - 'Young Woman with Auburn Hair in a Pink Blouse', pastel on paper, 1895, Honolulu Academy of Arts.jpg",
+     "reason": "art"
+    }
+   ]
+  },
+  "saffron_flower": {
+   "titles": [
+    "Крокусы под снегом.jpg",
+    "Saffran crocus sativus moist.jpg",
+    "Crocus sativus, saff (4on5).JPG",
+    "Crocus sativus - Saffron crocus - Safran 01.JPG",
+    "Crocus sativus - Saffron crocus - Safran 02.JPG",
+    "Crocus sativus - Saffron crocus - Safran 03.JPG",
+    "Crocus sativus, saffron (38).jpg",
+    "Crocus sativus, saffron (29).jpg",
+    "Crocus sativus, saffron (30).jpg",
+    "Crocus sativus, saffron (55).JPG",
+    "Crocus sativus, saffron (28).jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Saffronfarm-860808.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Safran-Weinviertel Niederreiter 2 Gramm 8285.jpg",
+     "reason": "moved"
+    },
+    {
+     "title": "Harvesting saffron, Gonabad (13960928000822636492949519859467 93660).jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Iran saffron threads.jpg",
+     "reason": "moved"
+    },
+    {
+     "title": "Harvesting saffron, Gonabad (13960928000822636492949536585994 96363).jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Harvesting saffron, Gonabad (13960928000822636492949508365231 32199).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "A Woman Who Work InThe Saffron Farm.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "860808-Saffronfarm-07-IMG 7888-2.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Crocus sativus, saffron (4).jpg",
+     "reason": "moved"
+    },
+    {
+     "title": "Fall 1966 (15705079834).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Crocus sativus, saffron(5).jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Crocus sativus, saffron (15).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (59).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (35).jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Crocus sativus, saffron (21).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (25).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (44).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (41).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (13).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (22).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (39).jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Crocus sativus, saffron (26).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (17).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron.jpg",
+     "reason": "moved"
+    },
+    {
+     "title": "Crocus sativus, saffron (16).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (27).jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Crocus sativus, saffron (24).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (46).JPG",
+     "reason": "subject"
+    },
+    {
+     "title": "Crocus sativus, saffron (36).jpg",
+     "reason": "dup"
+    }
+   ]
+  },
+  "saffron_packaged": {
+   "titles": [
+    "Saffron threads in a glass jar ( Viora Saffron packaging).jpg",
+    "Pure Kashmiri saffron pack 08.jpg",
+    "Pure Kashmiri saffron pack 04.jpg",
+    "SaffMHD.jpg",
+    "Pure Kashmiri saffron pack 02.jpg",
+    "Pure Kashmiri saffron pack 06.jpg",
+    "Pure Kashmiri saffron pack 01.jpg",
+    "Pure Kashmiri saffron pack 05.jpg",
+    "Packaged Saffron.jpg",
+    "Pure Kashmiri saffron pack 07.jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Portrait of an Indian Lady, traditionally called the Bibi of John Wombwell (d. 1795) (by Arthur William Devis).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Crooked Colors.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Barn For Sale - geograph.org.uk - 5500616.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Syrup jug, Liguria, Italy, 1550-1620 Wellcome L0065447.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Spinach and Ricotta Agnolotti - Spuntini (2094241543).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Naoura Mosque — Tozeur, Tunisia 02.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Iron Age bracelet (FindID 517231).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Vermeer Girl Interrupted at Her Music.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Naoura Mosque — Tozeur, Tunisia 01.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Pure Kashmiri saffron pack 03.jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Iron Age- Roman ring (FindID 517231).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Vermeer Girl Interrupted at Her MusicFXD.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Naoura Mosque — Tozeur, Tunisia 03.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Late Iron Age- Early Roman dangler (FindID 517231).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Leon Jean Basile Perrault - Maternity - Walters 372560.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Naoura Mosque — Tozeur, Tunisia 05.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Iron Age- Early Roman strap fitting (FindID 517231).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "PAUL CEZANNE Vue sur l'Estaque et le château d'If.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Naoura Mosque — Tozeur, Tunisia 04.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Brooch (FindID 98337).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Votes by party in the 1979 vote of no confidence against the government of James Callaghan.png",
+     "reason": "art"
+    }
+   ]
+  },
+  "food": {
+   "titles": [
+    "Paella de fruit de mer.jpg",
+    "Grain saffron rice.jpg",
+    "Shrimp Biriyani.JPG",
+    "Rice flavoed with saffron and Zereshk.jpg",
+    "Risotto alla Milanese.JPG",
+    "Paella kamilo.jpg",
+    "Saffron Rice or Basmati Rice Kesari Bath.png",
+    "Risotto alla milanese-Eisen.JPG",
+    "Paella Mixta at Celler sa Premsa.jpg",
+    "Ossobuco con risotto alla milanese.jpg",
+    "Paella vegana.jpg",
+    "01 Paella Valenciana original.jpg",
+    "White and saffron rices (3967472973).jpg",
+    "Spices on Spice Bazaar in Istanbul 02.jpg",
+    "Spice Market Marakesh.png"
+   ],
+   "skipped": [
+    {
+     "title": "Risotto de gambas, restaurant Danieli (Vienne, Autriche).jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Spices of Saúde flea market, São Paulo, Brazil.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Paella valenciana, Mazatlán, 25 de abril de 2023.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "A home made plate of mutton biryani served with chicken kassa cooked in the bengali style.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "20191205 Spice market, Old Delhi 0711 6765.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Biryani Home.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Spice market of Dhap Sultanganj Hat.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Eggplant Turnovers, Tomato Rice, Lentils and Saffron Rice at Moroccan Soup Bar.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Dum Biryani Plate.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Night Spice market in Casablanca.JPG",
+     "reason": "people"
+    },
+    {
+     "title": "Saffron rice.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Biryani 3.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Risotto alla milanese.JPG",
+     "reason": "enough"
+    },
+    {
+     "title": "Tbilisi Market. Spice Section.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Biryani 2.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Risotto alla milanese with a parmesan cookie and grilled Italian ham (16308525099).jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "باييا Paella.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Chicken Tikka Masala with Saffron Rice.JPG",
+     "reason": "enough"
+    },
+    {
+     "title": "Biryani 4.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Risotto Weihnachten 2020 04.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Spices WATERFRONT MARKET.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Paella marinera con galeras y langostinos.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Cloudy bay clams and saffron risotto.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Biryani of Lahore.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Risotto alla milanese con ossobuco di vitello piemontese (4520612452).jpg",
+     "reason": "enough"
+    }
+   ]
+  },
+  "red_objects": {
+   "titles": [
+    "Colored pencil(red and blue).jpg",
+    "Pen To Paper - Flickr - Lisa Zins.jpg",
+    "Red rubber bands 20190211.jpg",
+    "One red paperclip.jpg",
+    "Piece of red pencil graphite.jpg",
+    "Red pencil sharpener.jpg",
+    "Paper-clips colored 29343-480x360 (4904653295).jpg",
+    "Transparent red pencil sharpener.JPG",
+    "Royal Mail band.jpg",
+    "Red Wire Sculpture by Kurt Schwitters, Tate Modern.JPG",
+    "Red - Flickr - Rosmarie Voegtli (1).jpg",
+    "Capillary Action Gone Absolutely Redline.jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Skellerup Red Band rubber knee boots.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red LED.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red Paper Clip NYC.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "AW Faber blue pencils catalog 1940.png",
+     "reason": "art"
+    },
+    {
+     "title": "Wire ferrule crimper, KBT brand (detail).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Lennie Mace \"¥ € $\" 2014 dry ballpoint pen and ballpoint pen ink on paper \"Invisible Ink\" series.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Porous rubber band - side view.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red-Whiskered Bulbul Wire DSC8732.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red-paperclip-news-1.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Pen Paper Plot Logo-01.png",
+     "reason": "art"
+    },
+    {
+     "title": "Wooden doorstop with rubber band and invisible screw - on Red plastic.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Wire ferrule crimper, KBT brand (closed).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Pen Paper And Some Dice (229884325).jpeg",
+     "reason": "other"
+    },
+    {
+     "title": "Red Banded Rubber Frog Jan 2005.jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "Wire ferrule crimper, KBT brand (open).jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Büroklammern -- 2021 -- 6481.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Red Webbing, 2019.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red pencil urchin.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "PaperclipRedHot.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Minsc Character Sheet from Cameron Tofer pen&paper game.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Pencil on the ground.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Red-vented Bulbul on wire - India.jpg",
+     "reason": "animal"
+    },
+    {
+     "title": "PaperclipRedHotSmall.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Bird Feather Feather Paper Bird feather made into dipping pen paper inkblots etc.2505305 Edited 2020.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "St. Majewski & Co pencil №801 (blue & red, 1900-1918).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Yellow-Red 3-flap A4-A5 folders with elastic straps - Af.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "1967 AMC Marlin white with red interior 07.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "024特許第３７７９９８３号 United States Patent.jpg",
+     "reason": "other"
+    }
+   ]
+  },
+  "safflower": {
+   "titles": [
+    "Yamagata safflower (dry flower).jpg",
+    "Carthamus tinctorius 050709a.JPG",
+    "Blood orange fruit tisane.jpg",
+    "Carthamus tinctorius, Riudarenes.jpg",
+    "Carthamus tinctorius, Riudarenes 2.jpg",
+    "Carthamus tinctorius - 2024 May 7.jpeg",
+    "Carthamus tinctorius 002.JPG",
+    "Saffolwer orange.jpg",
+    "Middelburg Saffloer Carthamus tinctorius.jpg",
+    "কুসুম ফুল (Carthamus tinctorius).jpg",
+    "Färber-Distel IMG 2487.jpg",
+    "Carthamus tinctorius、Safflower、紅花P5026694.JPG"
+   ],
+   "skipped": [
+    {
+     "title": "Carthamus tinctorius (Flora of Tajikistan).png",
+     "reason": "subject"
+    },
+    {
+     "title": "Yamagata safflower dry flower ikebana.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Carthamus tinctorius kz03.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius Sturm21.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Muslim Rungrazes (Dyers) - 1863.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Tulare Lake Vanishes (MODIS 2024-06-07).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Carthamus tinctorius kz02.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius, Riudarenes 3.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Safflower (Carthamus tinctorius)) (29083687088).jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Carthamus tinctorius kz01.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Naturalis Biodiversity Center - RMNH.ART.689 - Carthamus tinctorius - Yūshi Ishizaki - Cock Blomhoff Collection - pencil drawing - water colour.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Carthamus tinctorius 050709c.JPG",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius jd plt DSC 9797.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Carthamus tinctorius jd pl DSC 2315.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius Dyer's Saffron ალისარჩული.JPG",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius NY-dist-map.png",
+     "reason": "art"
+    },
+    {
+     "title": "Carthamus tinctorius 050709b.JPG",
+     "reason": "enough"
+    },
+    {
+     "title": "करडई या गळीत पिकाची फुल Flowers of oil producing crop Safflower (Carthamus tinctorius).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius 001.JPG",
+     "reason": "subject"
+    },
+    {
+     "title": "Naturalis Biodiversity Center - RMNH.ART.342 - Dendrobium moniliforme - Rehmannia glutinosa - Adonis amurensis - Carthamus tinctorius - Draba nemorosa - Yūshi Ishizaki - Cock Blomhoff Collection - pencil drawing - water colour.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "MPHN-BV-0530 Carthamus tinctorius (Gabriel Lara).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Illustration Carthamus tinctorius0.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Puccinia calcitrapae on Carthamus tinctorius.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Safflower in Yonezawa.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Safflower fierd in Yonezawa, Yamagata.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Carthamus tinctorius - Osaka Museum of Natural History - DSC07849.JPG",
+     "reason": "other"
+    },
+    {
+     "title": "MPHN-BV-203 Carthamus tinctorius.jpg",
+     "reason": "art"
+    }
+   ]
+  },
+  "corn_silk": {
+   "titles": [
+    "Corn Silk, 2020-08-03, Beechview, 01.jpg",
+    "Cornsilk 7091.jpg",
+    "Corn silk in a field by Myrstigen 3.jpg",
+    "Corn silk in a field by Myrstigen 1.jpg",
+    "Maize 3.jpg",
+    "Corn blooming.jpg",
+    "玉米 (corn).jpg",
+    "Maka (Sweet Corn).jpg",
+    "Zea mays silk (1).jpg",
+    "Western corn rootworm.jpg",
+    "Corn Flower in Libya.jpg",
+    "-2020-08-04 Sweet corn (Zea mays), Trimingham, Norfolk.JPG"
+   ],
+   "skipped": [
+    {
+     "title": "Maize silks.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Everything for the garden (16390907195).jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Maize with Silks.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Alice Muth (1887-1952) in The Commercial Appeal of Memphis, Tennessee on October 4, 1946, part 1.jpg",
+     "reason": "art"
+    },
+    {
+     "title": "Maize plants at tasseling g silking stage.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Maize silk.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Corn silk in a field by Myrstigen 2.jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Silk on ears of corn.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Corn silk tea cup.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Maize silking stage.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Corn silk tea cup teapot 01.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Tassels of maize.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Corn silk tea cup teapot 02.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 31.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 09.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "玉米 (corn), yumi2.jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 11.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Corn-hair-1.JPG",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 07.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 08.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 17.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 32.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 28.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Corn Flowers.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 29.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 04.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "-2022-08-09 Sweet corn (Zea mays), Trimingham, Norfolk (3).JPG",
+     "reason": "subject"
+    },
+    {
+     "title": "0538Maize fields in Bulacan 12.jpg",
+     "reason": "subject"
+    }
+   ]
+  },
+  "saffron_loose": {
+   "titles": [
+    "Iran saffron threads.jpg",
+    "Saffron-spice adjusted.jpg",
+    "Saffron - premium spice.jpg",
+    "Safran-Weinviertel Niederreiter 2 Gramm 8285.jpg",
+    "Saffron.JPG",
+    "Saffron-IMG 6681-2.jpg",
+    "Saffron-IMG 6634-2.jpg",
+    "Saffron-IMG 6640-2.jpg",
+    "Saffron Red Thread ( World's Most Expensive Speices).jpg",
+    "Saffron-IMG 6644-2.jpg",
+    "Mongra Saffron.jpg",
+    "Saffron IMG 97781.JPG",
+    "Crocus sativus, saffron (4).jpg",
+    "Saffron IMG 9778.JPG",
+    "Persian Saffron.jpg",
+    "Crocus sativus, saffron.jpg"
+   ],
+   "skipped": [
+    {
+     "title": "Saffron stigmas Crocus speciosus corrected cropped.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Castle remains - geograph.org.uk - 1144540.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Saffron threads in a glass jar ( Viora Saffron packaging).jpg",
+     "reason": "dup"
+    },
+    {
+     "title": "Safrron stigmas of Crocus speciosus.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Kalava Mauli Wikipedia.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Saffron in Spice Shop - Sheki - Azerbaijan (18265272715).jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Mauli or Kalava.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Saffron - geograph.org.uk - 775287.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Saffron and other spices at a Turkish market.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Otus mauli restoration.jpeg",
+     "reason": "art"
+    },
+    {
+     "title": "Saffron and Mortar (14838708713).jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Rakhi Competition at SEABA 01.jpg Rakhi Competition at SEABA 03.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Saffron-IMG 6603-3-2.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Rakhi Competition at SEABA 01.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Saffron-sargol-zafaranic.jpg",
+     "reason": "enough"
+    },
+    {
+     "title": "Crocus sativus, saffron (27).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "(Rakhi flower) Passiflora 'Soi Fah' at VUDA park in Visakhapatnam.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Saffron at a Turkish market.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "SEABA Rakhi Competition 02.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Crocus sativus, saffron (24).jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Rakhi...jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Saffron in Nablus 059 - Aug 2011.jpg",
+     "reason": "subject"
+    },
+    {
+     "title": "Saffron - Crocus vernus 35.jpg",
+     "reason": "other"
+    },
+    {
+     "title": "Rakhi Sawant.jpg",
+     "reason": "people"
+    },
+    {
+     "title": "Crocus sativus, saffron (25).jpg",
+     "reason": "other"
+    }
+   ]
+  },
+  "documents": {
+   "titles": [
+    "Act of Independence of Central America (scan).jpg",
+    "ReceiptSwiss.jpg",
+    "1920 Reçu Berliet consignes 16.jpg",
+    "Felicien Rops - l'homme et l'artiste 1908 (144064786).jpg",
+    "Abbott and Holder receipt - 21 August 1969.jpg",
+    "Official document annexure 11 dated 12 March 1997 loniya visthapit rajput.jpg",
+    "Receipt for temporary bonds.jpg",
+    "Front page of Ottoman newspaper Kadin.jpg",
+    "William Shurtless, Letter, title page, printed by Kneeland & Green, 1745.jpg",
+    "US-BEP-Receipt for currency (23 July 1915).jpg",
+    "Front page of newspaper Wilnaer Zeitung with Lithuanian Vytis (Waykimas), published on 12 April 1918.jpg",
+    "Shell-Gas-Station-Receipt-MasterCard.jpg",
+    "Receipt from Josiah Wedgwood 1770.jpg",
+    "Front page of the newspaper \"Busch\". 7 June 1941. La Paz.png"
+   ],
+   "skipped": [],
+   "note": "poultry repository's selection"
+  },
+  "screenshots": {
+   "titles": [
+    "Screenshot wikiwand.jpg",
+    "Screenshot of the official website of the President of Ukraine 2019-05-20 uk.png",
+    "Wikipedia screenshot 2026.jpg",
+    "Screenshot of website South African COVID-19 Vaccination Programme Registration.png",
+    "Screenshot of ilo Muni.png",
+    "Screenshot of System-Tools.png",
+    "Screenshot Wikipedia Mobile Smartphone.png",
+    "Screenshot of X's website (Sept 2025).png",
+    "Screenshot of Crosstalk Mk.4.png",
+    "Tatoeba.org English screenshot 2021.png",
+    "Screenshot of the Main Page on the English Wikipedia - Wikipedia 25.png",
+    "Tea 62.0.1 - Screenshot - Editor Module.png",
+    "StatProofBook website screenshot.png",
+    "Screenshot FlyBack 0.3.3.png"
+   ],
+   "skipped": [],
+   "note": "poultry repository's selection"
+  },
+  "people": {
+   "titles": [
+    "People walking on the street in Nairobi, Kenya.jpg",
+    "Young people walking in the street, Hungary 2011.jpg",
+    "People walking in a street.jpg",
+    "People walking on a street in Copenhagen.jpg",
+    "Throngs of people walking towards Himeji Castle, Himeji, 2016.jpg",
+    "People walking at Regent Street on a car-free day, London, United Kingdom julesvernex2.jpg",
+    "Street walking - Castelo, Lisbon, Portugal.jpg",
+    "Group of people walking down the street.jpg",
+    "Woman walking next to Edifício-sede da Caixa Geral de Depósitos, Arco do Cego Street, Lisbon, Portugal julesvernex2.jpg",
+    "Officers Walking on Jinzhou Street, Taipei in Lunch Time 20150901.jpg",
+    "People walking on sidewalk in central Pyongyang, with trolleybus and trams in background.jpg",
+    "People walking in the Kirkegata, Stavanger, Norway julesvernex2.jpg"
+   ],
+   "skipped": [],
+   "note": "poultry repository's selection"
+  },
+  "everyday_objects": {
+   "titles": [
+    "Mug Wikipedia Malayalam.jpg",
+    "Parked bicycle with graffitied building facade and doors in Amsterdam.jpg",
+    "Santorin (GR), Fira -- 2017 -- 2598.jpg",
+    "Smartphone display screen.jpg",
+    "Coffee mug on table.jpg",
+    "Backlit keyboard.jpg",
+    "Reebok Royal Glide Ripple Clip shoe.jpg",
+    "Shoes in a spanish shoe store.jpg",
+    "Smartphone di varie marche.png",
+    "Coffee Mug on Desk.jpg",
+    "Razer Ornata Chroma keyboard-top PNr°0463.jpg",
+    "Bicycle crankset Shimano 105 R7000 (chainring 50-34, length 172.5mm, 11 speed).jpg",
+    "Coffee mugs.jpg",
+    "Asics Gel-Cumulus 22.jpg"
+   ],
+   "skipped": [],
+   "note": "poultry repository's selection"
+  },
+  "scenes": {
+   "titles": [
+    "Landscape Arnisee-region.JPG",
+    "Eldridge Street Synagogue (42773).jpg",
+    "Beech Forest (AU), Great Otway National Park, Beauchamp Falls -- 2019 -- 1271.jpg",
+    "Mulberry Street NYC c1900 LOC 3g04637u edit.jpg",
+    "Beach of Cape Fiolent, Crimea.jpg",
+    "Spruce forest at Holma.jpg",
+    "Facade of the Conjunto Nacional cropped version.jpg",
+    "Havelock Island, Mangrove tree on the beach, Andaman Islands.jpg",
+    "Wooden staircase steps in the forest of Hallasan Park Eorimok Trail at dusk on Jeju Island in South Korea.jpg",
+    "Parasols, Evening, Beach, Rincon de la Victoria, Andalusia, Spain.jpg",
+    "Québec city downtown.jpg",
+    "Illuminated facade of a 3-storey restaurant with Japanese signs and red paper lanterns, Chiyoda, Tokyo.jpg",
+    "Seal Rocks, Ocean Beach, San Francisco.jpg",
+    "Snowy Sainte-Famille Street in Quebec City.jpg"
+   ],
+   "skipped": [],
+   "note": "poultry repository's selection"
+  },
+  "other_animals": {
+   "titles": [
+    "Felis catus-cat on snow.jpg",
+    "Biandintz eta zaldiak - modified2.jpg",
+    "Flock of sheep.jpg",
+    "DSC09611a Search and Rescue Dog, Austrian Red Cross Perchtoldsdorf, 2024-10.jpg",
+    "Cow in Field image.jpg",
+    "Horse December 2014-1.jpg",
+    "Cat November 2010-1a.jpg",
+    "Dode merel (Turdus merula). Locatie, Tuinreservaat Jonkervallei 02.jpg",
+    "Cow on a field resting 2025.jpg",
+    "Domestic horse at Suryachaur and the mountains in the back1.jpg",
+    "Swaledale Sheep, Lake District, England - June 2009.jpg",
+    "June odd-eyed-cat cropped.jpg",
+    "Stubai - Tiroler Bergschaf -BT- 01.jpg",
+    "IcelandicHorseInWinter.jpg"
+   ],
+   "skipped": [],
+   "note": "poultry repository's selection"
+  }
+ }
+}
