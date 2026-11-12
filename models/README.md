@@ -21,6 +21,10 @@ committed in [`web/public/model/`](../web/public/model). It is rebuilt from `bes
 [`scripts/build_web_model.py`](../scripts/build_web_model.py) and
 [`scripts/convert_to_tfjs.sh`](../scripts/convert_to_tfjs.sh).
 
+The input check's image encoder (TinyCLIP ViT-8M/16, Microsoft, MIT licence; float16 weights, 16.9 MB in four
+4 MiB shards) is committed in [`web/public/gate/`](../web/public/gate), with its licence notice. Its rule
+(prototypes and threshold) is [`input_check.json`](input_check.json); see the README's Input check section.
+
 ## Download and use
 
 ```bash

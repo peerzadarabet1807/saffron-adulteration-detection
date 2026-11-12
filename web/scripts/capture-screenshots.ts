@@ -98,11 +98,28 @@ async function main() {
     await showResult(page, 'sample-06.jpg');
     await shot(page, '04-result-counterfeit-gradcam.png');
 
-    // a real photo that is not saffron (CC BY 4.0, see docs/ood/README.md)
+    // a real photo that is not saffron (CC BY 4.0, see docs/ood/README.md): the input check turns it away
     await page.getByTestId('file-input').setInputFiles(join(ROOT, 'docs', 'ood', 'red_thread_yarn.jpg'));
-    await showResult(page, 'red_thread_yarn.jpg');
-    await page.getByTestId('low-confidence').waitFor();
+    await page.getByTestId('input-check-notice').waitFor({ timeout: 120_000 });
+    await page.waitForTimeout(900);
     await shot(page, '05-low-confidence.png');
+    // "Analyse anyway": the classifier's answer, labelled as unchecked
+    await page.getByTestId('analyse-anyway').click();
+    await showResult(page, 'red_thread_yarn.jpg');
+    await shot(page, '09-unchecked.png');
+    await ctx.close();
+  }
+
+  // 10: the input check notice, dark
+  {
+    const ctx = await browser.newContext({ ...DESKTOP, colorScheme: 'dark' });
+    const page = await ctx.newPage();
+    await page.goto(BASE);
+    await modelReady(page);
+    await page.getByTestId('file-input').setInputFiles(join(ROOT, 'docs', 'ood', 'red_thread_yarn.jpg'));
+    await page.getByTestId('input-check-notice').waitFor({ timeout: 120_000 });
+    await page.waitForTimeout(900);
+    await shot(page, '10-input-check-dark.png');
     await ctx.close();
   }
 
@@ -110,7 +127,7 @@ async function main() {
   {
     const ctx = await browser.newContext({ ...DESKTOP, colorScheme: 'light' });
     // shards download in parallel; stagger them so the progress bar moves visibly
-    await ctx.route('**/model/group1-shard*', async (route) => {
+    await ctx.route(/\/(model|gate)\/group1-shard/, async (route) => {
       const n = Number(/shard(\d+)of/.exec(route.request().url())?.[1] ?? 1);
       await new Promise((r) => setTimeout(r, 700 * n));
       await route.continue();

@@ -78,6 +78,32 @@ Both errors are dyed stems (C4) predicted as artificial saffron (C5); one of the
 0.0021 and the Grad-CAM maps correlate at r ≥ 0.9999. The uint8-quantised variant (23.7 MB) was rejected
 (largest probability difference 0.122).
 
+## Input check in the app
+
+Since November 2026 the web app runs an input check before this model. It does not change the model or its
+outputs; it decides whether the model is asked at all, and it says nothing about pure or counterfeit. The image
+encoder of TinyCLIP ViT-8M/16 (Microsoft, MIT licence, revision `a2a8c6e`) embeds the model's 300 x 300 input,
+area-resized to 224 x 224, and the photo passes when its cosine similarity with the nearest of five class
+prototypes (mean embeddings of the 349 training photos) is at least 0.9419. That is the highest threshold with
+at most 1% false rejection on the 75 validation photos, which here means the lowest validation score
+([`input_check.json`](input_check.json)). Measured on the test split and on ood-test only, with 95% Wilson
+intervals ([`evaluation.md`](../results/input_check/evaluation.md)):
+
+| | Rate |
+|---|---|
+| Saffron-thread photos turned away (test, 75) | 2.7% (2 of 75; 0.7 to 9.2): one C1, one C2 |
+| Look-alike photos let through (red thread, fabric, chili threads, hair, flowers, jars, food, red objects) | 0.0% (0 of 60; 0.0 to 6.0) |
+| Unrelated photos let through | 0.0% (0 of 47; 0.0 to 7.6) |
+| Grey zone let through (safflower, corn silk, loose saffron not on paper) | 0.0% (0 of 24; 0.0 to 13.8) |
+
+The highest-scoring OOD photo (a red pencil) scored 0.8436. Counterfeit classes C3 to C5 were turned away 0 of 15
+times each; the two rejections are in the pure classes, which were photographed on distinctive paper. A failed
+check shows a notice instead of a verdict; the user can still choose "Analyse anyway", and the result is then
+labelled "Unchecked input". The check is a safeguard, not a guarantee: with 15 test photos per class the
+intervals are wide, it compares with photos from one phone on a few papers, and threads photographed on other
+paper or in other light may be turned away more often (not measured). It does not catch this model's mistakes
+(neither of the 2 test errors was turned away, post-hoc).
+
 ## Limitations
 
 1. **Background confound.** Grad-CAM shows the model often attends to the background paper for C1 and C2. C1
@@ -89,11 +115,12 @@ Both errors are dyed stems (C4) predicted as artificial saffron (C5); one of the
 4. **Narrow acquisition:** one phone, one region, single threads on light paper.
 5. **Closed set and no calibration:** always outputs one of five classes; probabilities are not calibrated.
    Of seven red thread/yarn/fabric photos, five triggered the app's low-confidence warning and two were
-   classified confidently ([details](../docs/ood/README.md)).
+   classified confidently ([details](../docs/ood/README.md)). The input check above now turns all seven away,
+   but calling the model directly (Python, `best_model.keras`) runs no input check.
 
 Recommended next steps: re-photograph every class on one standard background with fixed lighting;
 background-randomisation augmentation or segment-and-crop of the thread; an external test set collected under
-different conditions; a "not saffron" class or OOD detector; temperature scaling; k-fold cross-validation.
+different conditions (also to measure the input check's false rejection outside the training setting); temperature scaling; k-fold cross-validation.
 
 ## Ethical considerations
 
