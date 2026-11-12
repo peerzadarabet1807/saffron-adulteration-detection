@@ -4,7 +4,7 @@ import { validateFile } from '../lib/fileValidation';
 import { interpret, type Interpretation } from '../lib/prediction';
 import type { SampleInfo } from '../lib/samples';
 import { ClassifierClient } from '../worker/client';
-import type { LoadProgress, ModelInfo, WorkerPrediction } from '../worker/types';
+import type { InputCheckResult, LoadProgress, ModelInfo, WorkerPrediction } from '../worker/types';
 
 export type ModelState =
   | { status: 'loading'; phase: LoadProgress['phase']; fraction: number }
@@ -29,13 +29,29 @@ export interface ClassificationResult {
   prediction: WorkerPrediction;
   interpretation: Interpretation;
   createdAt: Date;
+  inputCheck: InputCheckResult;
+  /** the input check failed and the user chose "Analyse anyway" */
+  unchecked: boolean;
 }
 
-export type JobStep = 'reading' | 'decoding' | 'waiting-for-model' | 'classifying';
+/** The input check failed: no verdict is shown unless the user chooses "Analyse anyway". */
+export interface RejectedPhoto {
+  id: number;
+  source: ImageSource;
+  displayUrl: string;
+  width: number;
+  height: number;
+  inputCheck: InputCheckResult;
+  /** kept so "Analyse anyway" can run the classifier on the same file */
+  file: Blob;
+}
+
+export type JobStep = 'reading' | 'decoding' | 'waiting-for-model' | 'checking' | 'classifying';
 
 export type JobState =
   | { status: 'idle' }
   | { status: 'working'; step: JobStep; source: ImageSource }
+  | { status: 'rejected'; photo: RejectedPhoto }
   | { status: 'done'; result: ClassificationResult }
   | { status: 'error'; message: string; source?: ImageSource };
 
@@ -52,8 +68,13 @@ function getClient(): ClassifierClient {
   return client;
 }
 
-// Read-only diagnostics for the e2e tests (tensor count inside the worker, to catch memory leaks).
-(globalThis as { __saffronDebug?: unknown }).__saffronDebug = { memory: () => getClient().memory() };
+// Read-only diagnostics for the e2e tests: tensor count inside the worker (memory leaks) and the last input
+// check result.
+let lastInputCheck: InputCheckResult | null = null;
+(globalThis as { __saffronDebug?: unknown }).__saffronDebug = {
+  memory: () => getClient().memory(),
+  lastInputCheck: () => lastInputCheck,
+};
 
 function initModel(): Promise<ModelInfo> {
   initPromise ??= getClient()
@@ -98,8 +119,9 @@ export function useClassifier() {
     const onProgress = (p: LoadProgress) =>
       setModel({ status: 'loading', phase: p.phase, fraction: p.fraction });
     progressListeners.add(onProgress);
-    // The model is 47 MB: start downloading once the page itself has loaded and painted, so fonts, styles
-    // and the app are not competing with it. Classifying earlier starts it straight away (see classify).
+    // The models (47 MB classifier, 17 MB input check) download once the page itself has loaded and painted,
+    // so fonts, styles and the app are not competing with them. Classifying earlier starts the download
+    // straight away (see classify).
     // ?preload=0 skips the background download until the first classification (used to measure page
     // performance without the model, since Lighthouse cannot block a worker's requests).
     let cancelled = new URLSearchParams(window.location.search).get('preload') === '0';
@@ -136,7 +158,7 @@ export function useClassifier() {
    * its failures surface as job errors too. Resolves with the result, or null if it failed or was superseded.
    */
   const classify = useCallback(
-    async (input: Blob | (() => Promise<Blob>), source: ImageSource) => {
+    async (input: Blob | (() => Promise<Blob>), source: ImageSource, force = false) => {
       const id = ++jobId.current;
       const isStale = () => id !== jobId.current;
       let displayUrl: string | null = null;
@@ -164,13 +186,21 @@ export function useClassifier() {
           bitmap.close();
           return null;
         }
-        setJob({ status: 'working', step: 'classifying', source });
-        const prediction = await getClient().classify(bitmap);
+        setJob({ status: 'working', step: force ? 'classifying' : 'checking', source });
+        const { inputCheck, prediction } = await getClient().classify(bitmap, { force });
+        lastInputCheck = inputCheck;
         if (isStale()) return null;
 
         if (shownUrl.current) URL.revokeObjectURL(shownUrl.current);
         shownUrl.current = displayUrl;
-        displayUrl = null; // now owned by the result
+        displayUrl = null; // now owned by the result or the notice
+        if (!prediction) {
+          setJob({
+            status: 'rejected',
+            photo: { id, source, displayUrl: shownUrl.current, width, height, inputCheck, file },
+          });
+          return null;
+        }
         const result: ClassificationResult = {
           id,
           source,
@@ -180,6 +210,8 @@ export function useClassifier() {
           prediction,
           interpretation: interpret(prediction.probabilities),
           createdAt: new Date(),
+          inputCheck,
+          unchecked: !inputCheck.passed,
         };
         setJob({ status: 'done', result });
         return result;
@@ -198,5 +230,11 @@ export function useClassifier() {
     setJob({ status: 'idle' });
   }, []);
 
-  return { model, job, classify, reset, retryModel };
+  /** Run the classifier on the photo the input check turned away. */
+  const analyseAnyway = useCallback(
+    (photo: RejectedPhoto) => classify(photo.file, photo.source, true),
+    [classify],
+  );
+
+  return { model, job, classify, reset, retryModel, analyseAnyway };
 }

@@ -1,10 +1,12 @@
 import { AnimatePresence, m } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import type { ClassificationResult, JobState, JobStep } from '../hooks/useClassifier';
+import type { ClassificationResult, JobState, JobStep, RejectedPhoto } from '../hooks/useClassifier';
 import { CLASS_INFO } from '../lib/classes';
+import { INPUT_CHECK_COPY } from '../lib/inputCheckCopy';
 import { downloadBlob, renderResultCard, resultCardFilename } from '../lib/resultCard';
 import { CamViewer } from './CamViewer';
-import { CheckIcon, CrossIcon, DownloadIcon, RefreshIcon } from './icons';
+import { AlertIcon, CheckIcon, CrossIcon, DownloadIcon, RefreshIcon } from './icons';
+import { InputCheckNotice } from './InputCheckNotice';
 import { ProbabilityBars } from './ProbabilityBars';
 import { LowConfidenceWarning, TopClass, VerdictBanner } from './Verdict';
 
@@ -12,15 +14,18 @@ const STEP_LABEL: Record<JobStep, string> = {
   reading: 'Checking the file…',
   decoding: 'Decoding the photo…',
   'waiting-for-model': 'Waiting for the model to finish loading…',
+  checking: 'Checking the photo, then running the model…',
   classifying: 'Running the model…',
 };
 
 interface Props {
   job: JobState;
   onAnother: () => void;
+  onPhotoTips: () => void;
+  onAnalyseAnyway: (photo: RejectedPhoto) => void;
 }
 
-export function ResultPanel({ job, onAnother }: Props) {
+export function ResultPanel({ job, onAnother, onPhotoTips, onAnalyseAnyway }: Props) {
   if (job.status === 'idle' || job.status === 'error') return null;
   return (
     <section id="result" aria-labelledby="result-heading" className="scroll-mt-24">
@@ -43,6 +48,21 @@ export function ResultPanel({ job, onAnother }: Props) {
               </h2>
               <p className="text-sm text-ink-2">{STEP_LABEL[job.step]}</p>
             </div>
+          </m.div>
+        ) : job.status === 'rejected' ? (
+          <m.div
+            key={`rejected-${job.photo.id}`}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+          >
+            <InputCheckNotice
+              photo={job.photo}
+              onAnother={onAnother}
+              onPhotoTips={onPhotoTips}
+              onAnalyseAnyway={() => onAnalyseAnyway(job.photo)}
+            />
           </m.div>
         ) : (
           <m.div
@@ -114,6 +134,20 @@ function Result({ result, onAnother }: { result: ClassificationResult; onAnother
           inference
         </p>
       </div>
+
+      {result.unchecked && (
+        <p
+          role="note"
+          className="mx-5 mt-5 flex gap-3 rounded-2xl border border-warn-line bg-warn-soft px-4 py-3 text-sm text-ink-2 sm:mx-6"
+          data-testid="unchecked-label"
+        >
+          <AlertIcon className="mt-0.5 shrink-0 text-lg text-warn-ink" />
+          <span>
+            <strong className="font-semibold text-warn-ink">Unchecked input:</strong>{' '}
+            {INPUT_CHECK_COPY.uncheckedLabel.replace(/^Unchecked input: /, '')}
+          </span>
+        </p>
+      )}
 
       <div className="grid gap-8 p-5 sm:p-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
         {/* on phones the verdict comes first; on wide screens the image sits on the left */}

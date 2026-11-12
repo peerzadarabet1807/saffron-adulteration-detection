@@ -12,6 +12,7 @@ import { useClassifier, type JobState, type SourceKind } from './hooks/useClassi
 import { useSamples } from './hooks/useSamples';
 import { useTheme } from './hooks/useTheme';
 import { CLASS_INFO } from './lib/classes';
+import { INPUT_CHECK_COPY, rejectionAnnouncement } from './lib/inputCheckCopy';
 import { formatPercent } from './lib/prediction';
 import { fetchSampleBlob, type SampleInfo } from './lib/samples';
 
@@ -22,9 +23,11 @@ function announcement(job: JobState): string {
       return 'Analysing the photo…';
     case 'error':
       return job.message;
+    case 'rejected':
+      return rejectionAnnouncement();
     case 'done': {
       const { verdict, top, lowConfidence } = job.result.interpretation;
-      return `Result: likely ${verdict}. Most likely class ${top.id}, ${CLASS_INFO[top.id].name}, ${formatPercent(top.probability)}.${
+      return `${job.result.unchecked ? `${INPUT_CHECK_COPY.uncheckedLabel} ` : ''}Result: likely ${verdict}. Most likely class ${top.id}, ${CLASS_INFO[top.id].name}, ${formatPercent(top.probability)}.${
         lowConfidence ? ' Low confidence.' : ''
       }`;
     }
@@ -35,7 +38,7 @@ function announcement(job: JobState): string {
 
 export default function App() {
   const { theme, toggle } = useTheme();
-  const { model, job, classify, reset, retryModel } = useClassifier();
+  const { model, job, classify, reset, retryModel, analyseAnyway } = useClassifier();
   const samples = useSamples();
   const [guidelinesOpen, setGuidelinesOpen] = useState(true);
   const [revealed, setRevealed] = useState<Record<string, Revealed>>({});
@@ -64,6 +67,14 @@ export default function App() {
       void run(() => fetchSampleBlob(sample), 'sample', `Sample ${index + 1}`, sample),
     [run],
   );
+
+  const onPhotoTips = useCallback(() => {
+    setGuidelinesOpen(true);
+    const tips = document.getElementById('photo-guidelines');
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    tips?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    tips?.querySelector<HTMLElement>('summary')?.focus({ preventScroll: true });
+  }, []);
 
   const onAnother = useCallback(() => {
     reset();
@@ -112,7 +123,12 @@ export default function App() {
               />
             </div>
 
-            <ResultPanel job={job} onAnother={onAnother} />
+            <ResultPanel
+              job={job}
+              onAnother={onAnother}
+              onPhotoTips={onPhotoTips}
+              onAnalyseAnyway={(photo) => void analyseAnyway(photo)}
+            />
 
             <SampleGallery
               samples={samples}

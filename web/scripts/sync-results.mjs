@@ -10,6 +10,11 @@ const files = [
   [join(root, 'results', 'metrics.json'), join(web, 'src', 'data', 'metrics.json')],
   [join(root, 'models', 'tfjs_parity.json'), join(web, 'src', 'data', 'tfjs_parity.json')],
   [join(root, 'models', 'class_names.json'), join(web, 'src', 'data', 'class_names.json')],
+  [join(root, 'models', 'input_check.json'), join(web, 'src', 'data', 'input_check.json')],
+  [
+    join(root, 'results', 'input_check', 'summary.json'),
+    join(web, 'src', 'data', 'input_check_summary.json'),
+  ],
 ];
 
 mkdirSync(join(web, 'src', 'data'), { recursive: true });

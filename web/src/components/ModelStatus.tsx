@@ -33,8 +33,8 @@ export function ModelStatus({ model, lastInferenceMs, onRetry }: Props) {
     const downloading = model.phase === 'download';
     const pct = Math.round(model.fraction * 100);
     const label = downloading
-      ? `Downloading the model: ${formatBytes(model.fraction * __MODEL_BYTES__)} of ${formatBytes(__MODEL_BYTES__)}`
-      : 'Preparing the model (compiling kernels)…';
+      ? `Downloading the models: ${formatBytes(model.fraction * (__MODEL_BYTES__ + __GATE_BYTES__))} of ${formatBytes(__MODEL_BYTES__ + __GATE_BYTES__)}`
+      : 'Preparing the models (compiling kernels)…';
     return (
       <div className="space-y-2 text-sm" data-testid="model-status" data-state="loading">
         <div className="flex items-baseline justify-between gap-3 text-ink-2">
@@ -56,7 +56,8 @@ export function ModelStatus({ model, lastInferenceMs, onRetry }: Props) {
         </div>
         {downloading && (
           <p className="text-xs text-ink-3">
-            One-time download; the model is cached in your browser for next time.
+            One-time download of the classifier and the input check; both are cached in your browser for next
+            time.
           </p>
         )}
       </div>

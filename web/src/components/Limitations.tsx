@@ -1,3 +1,4 @@
+import { INPUT_CHECK_SUMMARY as IC } from '../lib/inputCheckCopy';
 import { metrics } from '../lib/metrics';
 import { AlertIcon } from './icons';
 
@@ -66,7 +67,13 @@ export function Limitations() {
             <p className="mt-1">
               There is no &ldquo;not saffron&rdquo; or &ldquo;mixed sample&rdquo; class, so the model{' '}
               <strong>always</strong> answers with one of the five classes, even for a red thread or a blank
-              page. Its probabilities are not calibrated, and it can be confidently wrong.
+              page. Its probabilities are not calibrated, and it can be confidently wrong. The{' '}
+              <a href="#input-check" className="font-medium text-ink underline underline-offset-4">
+                input check
+              </a>{' '}
+              in front of it turns most such photos away, but in testing let{' '}
+              {(IC.false_acceptance.near.rate * 100).toFixed(1)}% of look-alike photos through and turned away{' '}
+              {(IC.false_rejection.test.rate * 100).toFixed(1)}% of saffron-thread test photos.
             </p>
           </div>
         </div>

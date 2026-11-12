@@ -1,15 +1,29 @@
 import * as Comlink from 'comlink';
 import { bitmapToRGBA } from '../lib/pixels';
+import { validateInputCheck } from '../lib/inputCheckValidate';
 import type {
   BackendName,
   ClassifierApi,
+  ClassifyOptions,
   ModelInfo,
   ProgressCallback,
   RunsIn,
-  WorkerPrediction,
+  WorkerResult,
 } from './types';
 
+/** Boundary check: whatever the worker returns about the input check is checked before the UI sees it. */
+function validateResult(r: WorkerResult): WorkerResult {
+  validateInputCheck(r.inputCheck);
+  if (!(r.inputCheckMs >= 0)) throw new Error('The input check returned an invalid timing.');
+  if (r.prediction === null && r.inputCheck.passed) {
+    throw new Error('The model returned no result for a photo that passed the input check.');
+  }
+  return r;
+}
+
 export const MODEL_URL = new URL(`${import.meta.env.BASE_URL}model/model.json`, window.location.origin).href;
+export const GATE_URL = new URL(`${import.meta.env.BASE_URL}gate/model.json`, window.location.origin).href;
+const URLS = { model: MODEL_URL, gate: GATE_URL };
 
 /** Optional ?backend=webgl|wasm|cpu override (used by the e2e tests to exercise every backend). */
 export function backendFromUrl(search = window.location.search): BackendName | undefined {
@@ -69,17 +83,23 @@ export class ClassifierClient {
   }
 
   async init(onProgress: ProgressCallback): Promise<ModelInfo> {
-    if (this.remote) return this.remote.init(MODEL_URL, Comlink.proxy(onProgress), this.backend);
-    return (await this.local!).init(MODEL_URL, onProgress, this.backend ?? 'webgl');
+    if (this.remote) return this.remote.init(URLS, Comlink.proxy(onProgress), this.backend);
+    return (await this.local!).init(URLS, onProgress, this.backend ?? 'webgl');
   }
 
   /** Takes ownership of (and consumes) the bitmap. */
-  async classify(bitmap: ImageBitmap): Promise<WorkerPrediction> {
-    if (!this.remote) return (await this.local!).classify(bitmap);
-    if (this.workerHasOffscreenCanvas) return this.remote.classify(Comlink.transfer(bitmap, [bitmap]));
+  async classify(bitmap: ImageBitmap, options: ClassifyOptions): Promise<WorkerResult> {
+    return validateResult(await this.run(bitmap, options));
+  }
+
+  private async run(bitmap: ImageBitmap, options: ClassifyOptions): Promise<WorkerResult> {
+    if (!this.remote) return (await this.local!).classify(bitmap, options);
+    if (this.workerHasOffscreenCanvas) {
+      return this.remote.classify(Comlink.transfer(bitmap, [bitmap]), options);
+    }
     const { data, width, height } = bitmapToRGBA(bitmap);
     bitmap.close();
-    return this.remote.classifyPixels(Comlink.transfer(data, [data.buffer]), width, height);
+    return this.remote.classifyPixels(Comlink.transfer(data, [data.buffer]), width, height, options);
   }
 
   async memory() {
