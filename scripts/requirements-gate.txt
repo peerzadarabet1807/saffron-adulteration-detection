@@ -1,0 +1,6 @@
+# Python 3.11, CPU. For scripts/build_input_check.py and scripts/make_gate_references.py (embed step): the
+# input check's reference embeddings with the original TinyCLIP weights. Not needed for the web app.
+torch==2.5.1
+transformers==4.46.3
+numpy==1.26.4
+matplotlib==3.9.2
